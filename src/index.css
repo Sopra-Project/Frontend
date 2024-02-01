@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-marine-blue-dark {
+    background-color: #001f3f; /* Replace with the desired marine blue color code */
+}
