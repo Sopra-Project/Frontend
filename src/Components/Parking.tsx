@@ -1,26 +1,28 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-
-let antallParkeringsplasser = 10;
-
-let data = [
-    { licensePlate: 'ABC123', dateFrom: '2022-02-01', dateTo: '2022-02-15', isParkingActivated: true },
-    { licensePlate: 'XYZ789', dateFrom: '2022-02-10', dateTo: '2022-02-20', isParkingActivated: false },
-    { licensePlate: 'DEF456', dateFrom: '2022-02-15', dateTo: '2022-02-25', isParkingActivated: true },
-];
-
-
-let tilgjengeligParkingsplasser = antallParkeringsplasser - data.length
-
-function activateParking(){
-    //logikken inn her ja
-}
-
-function deactivateParking() {
-    //logikken inn her ja
-}
 
 function Parking() {
+    let antallParkeringsplasser = 10;
+    let data = [
+        { licensePlate: 'ABC123', dateFrom: '2022-02-01', dateTo: '2022-02-15', isParkingActivated: true },
+        { licensePlate: 'XYZ789', dateFrom: '2022-02-10', dateTo: '2022-02-20', isParkingActivated: false },
+        { licensePlate: 'DEF456', dateFrom: '2022-02-15', dateTo: '2022-02-25', isParkingActivated: true },
+    ];
+    let tilgjengeligParkingsplasser = antallParkeringsplasser - data.length
+
+    function activateParking(){
+        //logikken inn her ja
+        //const navigate = useNavigate();
+        //navigate('/activateparking');
+        console.log("button clicked")
+    }
+
+    function deactivateParking() {
+        //logikken inn her ja
+    }
+
   return (
       <main className="flex flex-col h-full w-full ">
           <div className="flex">
@@ -28,6 +30,8 @@ function Parking() {
                   <h2 className="text-xl font-bold mb-4">Tilgjengelige antall parkeringer: {tilgjengeligParkingsplasser}</h2>
               </div>
               <div className="w-1/3 bg-gray-300 p-4 border-b-2 border-gray-700">
+
+                  <Link to="/activateparking">Aktiver parkering</Link>
                   <button
                       className="bg-slate-800 text-white px-4 py-2 rounded-md m-2"
                       onClick={activateParking}
