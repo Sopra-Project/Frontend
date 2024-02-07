@@ -1,13 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Header from './Components/Header'; // Adjust the import path
+import Header from './Components/Header';
+import Dashboard from "./Components/Dashboard"; // Adjust the import path
 
 function App() {
     return (
         <Router>
             <div>
                 <Header />
-                {/* Other components and routes can be added here */}
+                <Dashboard />
             </div>
         </Router>
     );
