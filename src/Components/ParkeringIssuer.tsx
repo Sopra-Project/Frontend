@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AllParkingService from '../services/AllParkingService';
-import Activateparking from './Activateparking';
 import { useNavigate  } from 'react-router-dom';
 
 function Test() {
@@ -20,6 +19,7 @@ function Test() {
     }, []);
 
     const parkedData = data.filter(item => item.status.name === 'PARKED');
+    
     let navigate = useNavigate();
 
     const handleButtonClick = (registrationNumber: string) => {
