@@ -1,23 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
-import Parking from './Components/Parking';
+import ParkingIssuer from './Components/ParkeringIssuer';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Header from './Components/Header';
 import Activateparking from './Components/Activateparking';
-import Test from './Components/Test';
+import Test from './Components/ParkeringIssuer';
+import DeactivateParking from './Components/DeactivateParkering';
 
 function App() {
   return (
       <Router>
         <Header />
-          <Test />
         <Routes>
-          <Route path="/activateparking" element={<Activateparking />}/>
-          <Route path="/parkingissuer" element={<Parking />}/>
+          <Route path="/" element={<ParkingIssuer />} />
+          <Route path="/deactivateparking/:registrationNumber" element={<DeactivateParking />} />
         </Routes>
-          
-
       </Router>
   );
 }
