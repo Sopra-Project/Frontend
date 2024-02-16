@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate fra React Router
+import EditUSerForm from './EditUserForm';
 
-// Interface-definisjoner
+// Interface definitions
 interface Role {
     id: number;
     authority: string;
@@ -8,27 +10,39 @@ interface Role {
 
 interface User {
     id: number;
-    name: string;
-    email: string;
-    role: Role;
-    totalparkingspots: number;
-    totalparkingspotsavailable: number;
+    registrationNumber: string;
+    startTime: string;
+    endTime: string;
+    user: {
+        id: number;
+        name: string;
+        email: string;
+        role: Role;
+        building: {
+            id: number;
+            name: string;
+        };
+    };
+    status: {
+        id: number;
+        name: string;
+    };
 }
 
 const UsersTable = () => {
-    const [users, setUsers] = useState<User[]>([]);
+    const [sessions, setSessions] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchSessions = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/user/all');
+                const response = await fetch('https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/parking/all');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data: User[] = await response.json();
-                setUsers(data);
+                setSessions(data);
             } catch (error) {
                 if (error instanceof Error) {
                     setError(error.toString());
@@ -40,34 +54,37 @@ const UsersTable = () => {
             }
         };
 
-        fetchUsers();
+        fetchSessions();
     }, []);
 
+    const navigate = useNavigate(); // Bruk useNavigate-kroken
+
+    const handleEditClick = () => {
+        navigate('/edit-user'); // Naviger til den nye siden når "Endre" -knappen klikkes
+    };
+
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error fetching users: {error}</p>;
+    if (error) return <p>Error fetching sessions: {error}</p>;
 
     return (
-        <table className="w-full mt-5 border-collapse border border-black">
-            <thead className="bg-marine-blue-dark text-white">
-            <tr>
-                <th className="border border-black p-2">Brukere</th>
-                <th className="border border-black p-2">Rolle</th>
-                <th className="border border-black p-2">Oppgaver</th>
-            </tr>
-            </thead>
-            <tbody>
-            {users.map((user, index) => (
-                <tr key={user.id} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-white'}`}>
-                    <td className="border border-black p-2">{user.name}</td>
-                    <td className="border border-black p-2">{user.role.authority}</td>
-                    <td className="border border-black p-2">
-                        <button className="cursor-pointer px-4 py-2 mr-2 border-none rounded bg-blue-500 text-white transition-colors duration-300 hover:bg-blue-600">Endre</button>
-                        <button className="cursor-pointer px-4 py-2 border-none rounded bg-red-500 text-white transition-colors duration-300 hover:bg-red-600">Slett</button>
-                    </td>
-                </tr>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {sessions.map((session) => (
+                <div key={session.id} className="bg-white rounded-lg shadow-md p-6">
+                    <h2 className="text-lg font-semibold mb-2">{session.user.name}</h2>
+                    <p className="text-gray-600 mb-2">Email: {session.user.email}</p>
+                    <p className="text-gray-600 mb-2">Role: {session.user.role.authority}</p>
+                    <p className="text-gray-600 mb-2">Building: {session.user.building.name}</p>
+                    <p className="text-gray-600 mb-2">Registration Number: {session.registrationNumber}</p>
+                    <p className="text-gray-600 mb-2">Start Time: {session.startTime}</p>
+                    <p className="text-gray-600 mb-2">End Time: {session.endTime}</p>
+                    <p className="text-gray-600 mb-2">Status: {session.status.name}</p>
+                    <div className="flex justify-end mt-4">
+                        <button onClick={handleEditClick} className="px-4 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Endre</button>
+                        <button className="px-4 py-2 ml-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Slett</button>
+                    </div>
+                </div>
             ))}
-            </tbody>
-        </table>
+        </div>
     );
 };
 
