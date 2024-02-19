@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 
 const EditUserForm = () => {
     // Tilstand for skjemafeltene
@@ -8,6 +9,9 @@ const EditUserForm = () => {
         role: 'User', // Setter standardverdien til 'User'
         building: '',
     });
+
+    // Bruk useNavigate for å få en navigasjonsfunksjon
+    const navigate = useNavigate();
 
     // Funksjon for å oppdatere tilstanden til skjemafeltene
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -22,6 +26,9 @@ const EditUserForm = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Legg til logikk for å sende brukerdata til serveren og håndtere responsen
+
+        // Naviger tilbake til dashboard
+        navigate('/dashboard');
     };
 
     return (
@@ -49,7 +56,7 @@ const EditUserForm = () => {
                     <input type="text" id="building" name="building" value={userData.building} onChange={handleChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300" />
                 </div>
                 {/* Legg til en "Lagre endringer" -knapp */}
-                <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300">Save Changes</button>
+                <button type="submit" className="bg-marine-blue-dark text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300">Save Changes</button>
             </form>
         </div>
     );

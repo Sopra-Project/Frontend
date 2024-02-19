@@ -1,6 +1,7 @@
+// UsersTable.tsx
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importer useNavigate fra React Router
-import EditUSerForm from './EditUserForm';
+import { useNavigate } from 'react-router-dom';
 
 // Interface definitions
 interface Role {
@@ -33,6 +34,7 @@ const UsersTable = () => {
     const [sessions, setSessions] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSessions = async () => {
@@ -57,10 +59,12 @@ const UsersTable = () => {
         fetchSessions();
     }, []);
 
-    const navigate = useNavigate(); // Bruk useNavigate-kroken
-
     const handleEditClick = () => {
-        navigate('/edit-user'); // Naviger til den nye siden når "Endre" -knappen klikkes
+        navigate('/edit-user');
+    };
+
+    const handleDeleteClick = () => {
+        navigate('/delete-confirmation'); // Navigerer til delete-confirmation siden
     };
 
     if (loading) return <p>Loading...</p>;
@@ -79,8 +83,8 @@ const UsersTable = () => {
                     <p className="text-gray-600 mb-2">End Time: {session.endTime}</p>
                     <p className="text-gray-600 mb-2">Status: {session.status.name}</p>
                     <div className="flex justify-end mt-4">
-                        <button onClick={handleEditClick} className="px-4 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Endre</button>
-                        <button className="px-4 py-2 ml-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Slett</button>
+                        <button onClick={handleEditClick} className="px-4 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Edit</button>
+                        <button onClick={handleDeleteClick} className="px-4 py-2 ml-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Delete</button>
                     </div>
                 </div>
             ))}
