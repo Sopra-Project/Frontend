@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AllParkingService from '../services/AllParkingService';
 import { useNavigate  } from 'react-router-dom';
 
-function Test() {
+function ParkingIssuer() {
     const [data, setData] = useState<any[]>([]);
 
     useEffect(() => {
@@ -18,12 +18,12 @@ function Test() {
         fetchData();
     }, []);
 
-    const parkedData = data.filter(item => item.status.name === 'PARKED');
+    const parkedData = data.filter(item => item.status.id === 1);
     
     let navigate = useNavigate();
 
-    const handleButtonClick = (registrationNumber: string) => {
-        navigate(`/deactivateparking/${registrationNumber}`);
+    const handleButtonClick = (id: number) => {
+        navigate(`/deactivateparking/${id}`);
     };
 
     return (
@@ -37,7 +37,7 @@ function Test() {
                             <div className="m-2"><strong>Fra dato/klokkelsett:</strong> <p>{item.startTime}</p></div>
                             <div className="m-2"><strong>Til dato/klokkelsett:</strong> <p>{item.endTime}</p></div>
                             <div className="m-2"><strong>Bruker:</strong> <p>{item.user.name} ({item.user.email})</p></div>
-                            <button className="bg-gray-400 p-2 rounded-md m-4" onClick={() => handleButtonClick(item.registrationNumber)}>
+                            <button className="bg-gray-400 p-2 rounded-md m-4" onClick={() => handleButtonClick(item.id)}>
                                 Deaktiver
                             </button>
                         </div>
@@ -48,7 +48,7 @@ function Test() {
     );
 }
 
-export default Test;
+export default ParkingIssuer;
 
 
 
