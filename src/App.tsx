@@ -8,15 +8,17 @@ import AuthContextProvider from './contexts/AuthContext';
 import {useAuthContext} from './hooks/useAuthContext';
 
 function App() {
-    const { user } = useAuthContext();
+    const {user} = useAuthContext();
     return (
         <Router>
-            <Header username={user?.name}/>
-            <Routes>
-                <Route path="/" element={<ParkingIssuer/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/deactivateparking/:id" element={<DeactivateParking/>}/>
-            </Routes>
+            <AuthContextProvider>
+                <Header username={user?.name}/>
+                <Routes>
+                    <Route path="/" element={<ParkingIssuer/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/deactivateparking/:id" element={<DeactivateParking/>}/>
+                </Routes>
+            </AuthContextProvider>
         </Router>
     );
 }

@@ -1,6 +1,7 @@
 import React, {useState, useReducer, useEffect} from 'react';
 import {jwtDecode} from "jwt-decode";
 import {User} from "../types/types"
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     children: JSX.Element[] | JSX.Element
@@ -32,9 +33,13 @@ const AuthContextProvider = (props: Props) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null
     })
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token')
+        if(!token) {
+            navigate('/login')
+        }
         if (token) {
             const decoded: any = jwtDecode(token)
             const user: User = {
@@ -47,8 +52,6 @@ const AuthContextProvider = (props: Props) => {
             dispatch({type: 'LOGIN', payload: user})
         }
     }, [])
-
-    console.log(state)
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>
