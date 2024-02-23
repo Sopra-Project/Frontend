@@ -47,6 +47,7 @@ const AuthContextProvider = (props: Props) => {
                 localStorage.removeItem('token')
                 dispatch({type: 'LOGOUT'})
                 navigate('/login')
+                return
             }
         })
         if (token) {
