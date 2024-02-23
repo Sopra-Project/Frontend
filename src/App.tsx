@@ -5,11 +5,13 @@ import Header from './Components/Header';
 import Login from './Components/login/Login';
 import DeactivateParking from './Components/DeactivateParkering';
 import AuthContextProvider from './contexts/AuthContext';
+import {useAuthContext} from './hooks/useAuthContext';
 
 function App() {
+    const { user } = useAuthContext();
     return (
         <Router>
-            <Header username="Brukernavn"/>
+            <Header username={user?.name}/>
             <Routes>
                 <Route path="/" element={<ParkingIssuer/>}/>
                 <Route path="/login" element={<Login/>}/>

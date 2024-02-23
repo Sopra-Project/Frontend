@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface UsernameProps {
-    username: string;
+    username: string | undefined;
 }
 
 const Header: React.FC<UsernameProps> = ({ username }) => {

@@ -6,10 +6,16 @@ interface Props {
     children: JSX.Element[] | JSX.Element
 }
 
-export const AuthContext = React.createContext({
-    dispatch: (action: any) => {
-    }, user: null
+interface AuthContextType {
+    dispatch: React.Dispatch<any>;
+    user: User | null;
+}
+
+export const AuthContext = React.createContext<AuthContextType>({
+    dispatch: () => { },
+    user: null
 });
+
 
 export const authReducer = (state: any, action: any) => {
     switch (action.type) {
