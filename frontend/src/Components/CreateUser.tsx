@@ -1,16 +1,20 @@
-// Components/CreateUser.tsx
+// CreateUser.tsx
 import React, { useState } from 'react';
 
 const CreateUser = () => {
-    // State for form fields
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
 
-    // Handle form submission
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { // Angi typen for hendelsesparameteren 'e'
         e.preventDefault();
         console.log("Creating user with:", { name, email, role });
+    };
+
+    const handleEscape = (e: React.KeyboardEvent<HTMLDivElement>) => { // Angi typen for hendelsesparameteren 'e'
+        if (e.key === 'Escape') {
+            // Handle closing the popup or any other action
+        }
     };
 
     return (
@@ -40,11 +44,9 @@ const CreateUser = () => {
                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-marine-blue-dark hover:bg-marine-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-marine-blue-dark">
                     Opprett Bruker
                 </button>
-
             </form>
         </div>
     );
 };
 
 export default CreateUser;
-
