@@ -6,13 +6,13 @@ import Login from './Components/login/Login';
 import DeactivateParking from './Components/DeactivateParkering';
 import AuthContextProvider from './contexts/AuthContext';
 import {useAuthContext} from './hooks/useAuthContext';
+import {useEffect} from "react";
 
 function App() {
-    const {user} = useAuthContext();
     return (
         <Router>
             <AuthContextProvider>
-                <Header username={user?.name}/>
+                <Header/>
                 <Routes>
                     <Route path="/" element={<ParkingIssuer/>}/>
                     <Route path="/login" element={<Login/>}/>

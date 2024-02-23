@@ -1,7 +1,7 @@
-import React, {useState, useReducer, useEffect} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import {jwtDecode} from "jwt-decode";
 import {User} from "../types/types"
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 interface Props {
     children: JSX.Element[] | JSX.Element
@@ -39,6 +39,7 @@ const AuthContextProvider = (props: Props) => {
         const token = localStorage.getItem('token')
         if(!token) {
             navigate('/login')
+            return
         }
         if (token) {
             const decoded: any = jwtDecode(token)
@@ -52,6 +53,8 @@ const AuthContextProvider = (props: Props) => {
             dispatch({type: 'LOGIN', payload: user})
         }
     }, [])
+
+    console.log(state)
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>

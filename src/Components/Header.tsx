@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
-interface UsernameProps {
-    username: string | undefined;
-}
+const Header = () => {
 
-const Header: React.FC<UsernameProps> = ({ username }) => {
+    const {user} = useAuthContext()
 
   return (
     <header className="bg-marine-blue-dark p-4 flex justify-between items-center">
       <Link to="/" className="text-white text-3xl mx-auto">Værste gjesteparking</Link>
-      <h3 className="text-white text-sm">{username}</h3>
+      <h3 className="text-white text-sm">{user?.name}</h3>
     </header>
   );
 }
