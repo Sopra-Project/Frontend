@@ -1,4 +1,6 @@
-import React, {useState, useReducer} from 'react';
+import React, {useState, useReducer, useEffect} from 'react';
+import {jwtDecode} from "jwt-decode";
+import {User} from "../types/types"
 
 interface Props {
     children: JSX.Element[] | JSX.Element
@@ -24,6 +26,21 @@ const AuthContextProvider = (props: Props) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null
     })
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            const decoded: any = jwtDecode(token)
+            const user: User = {
+                name: decoded.name,
+                expiresIn: decoded.exp,
+                token: token,
+                building: decoded.building,
+                role: decoded.role
+            }
+            dispatch({type: 'LOGIN', payload: user})
+        }
+    }, [])
 
     console.log(state)
 
