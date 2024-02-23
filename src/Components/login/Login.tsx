@@ -1,13 +1,14 @@
 import {useState} from "react";
-import UserService from "../../services/UserService";
+import {useLogin} from "../../hooks/useLogin";
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
-    
+    const {login} = useLogin()
+
     const handleSubmit = (e: any) => {
         e.preventDefault()
-        UserService.login(email)
+        login(email)
     }
 
 
