@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const ALL_PARKING_API_URL = 'https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/parking/all';
+//const ALL_PARKING_API_URL = 'https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/parking/all';
+
+const ALL_PARKING_API_URL = 'http://localhost:8080/api/parking/all';
 
 export default async function AllParkingService() {
     try {
