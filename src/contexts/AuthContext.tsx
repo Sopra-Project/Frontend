@@ -13,7 +13,8 @@ interface AuthContextType {
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
-    dispatch: () => { },
+    dispatch: () => {
+    },
     user: null
 });
 
@@ -37,10 +38,17 @@ const AuthContextProvider = (props: Props) => {
 
     useEffect(() => {
         const token = localStorage.getItem('token')
-        if(!token) {
+        if (!token) {
             navigate('/login')
             return
         }
+        validateToken(token).then((valid) => {
+            if (!valid) {
+                localStorage.removeItem('token')
+                dispatch({type: 'LOGOUT'})
+                navigate('/login')
+            }
+        })
         if (token) {
             const decoded: any = jwtDecode(token)
             const user: User = {
@@ -61,6 +69,29 @@ const AuthContextProvider = (props: Props) => {
             {props.children}
         </AuthContext.Provider>
     )
+}
+
+const validateToken = async (token: string): Promise<boolean> => {
+    const url = "http://localhost:8080/api/auth/validate/token";
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            console.error("Error while validating token:", response);
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        console.error("Error while validating token:", error);
+        return false;
+    }
 }
 
 export default AuthContextProvider
