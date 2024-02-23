@@ -5,15 +5,17 @@ import ParkingIssuer from './Components/ParkingIssuer';
 import Header from './Components/Header';
 import Login from './Components/login/Login';
 import DeactivateParking from './Components/DeactivateParkering';
-import ActivateParking from './Components/ActivateParking';
 import LoginForm from './Components/LoginForm';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import ActivateParking from './Components/ActivateParking';
 
 function App() {
   return (
     <Router>
-    <LoginForm />
-  </Router>
+
+          <LoginForm />
+          
+        </Router>
   );
 }
 

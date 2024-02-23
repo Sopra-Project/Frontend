@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // 
+import UserService from '../services/UserService';
 
 
 function LoginForm() {
@@ -42,21 +43,12 @@ function LoginForm() {
  
 
 
-    const handleLogin = async (e: { preventDefault: () => void; }) => {
+    const handleLogin = async (e:any ) => {
         e.preventDefault();
     
         try {
-            // const response = await axios.post('http://localhost:8080/api/auth/login', { username });
-            const response = await axios.post('https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/auth/login', { username });
+            UserService.login(username)
 
-            let headers = {};
-    
-            if (getAuthToken() !== null && getAuthToken() !== "null") {
-                headers = {"Authorization": `Bearer ${getAuthToken()}`};
-            }
-            
-            const token = response.data.token;
-            setAuthHeader(token);
             navigate('/parkingissuer'); 
         } catch (error) {
             console.log('e er', e);
