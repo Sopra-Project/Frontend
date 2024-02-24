@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <header className="bg-marine-blue-dark p-4 flex justify-between items-center">
-      <Link to="/" className="text-white text-3xl mx-auto">Værste gjesteparking</Link>
+      <Link to="/" className="text-white text-3xl mx-auto">{user?.building}</Link>
       <h3 className="text-white text-sm">{user?.name}</h3>
     </header>
   );
