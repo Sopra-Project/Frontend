@@ -66,7 +66,7 @@ const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
-            const date = new Date(displayedYear, displayedMonth, day);
+            const date = new Date(displayedYear, displayedMonth, day + 1);
             const isPastDay = date < currentDate;
             days.push(
                 <div

@@ -55,8 +55,6 @@ const AuthContextProvider = (props: Props) => {
         }
     }, [])
 
-    console.log(state)
-
     return (
         <AuthContext.Provider value={{...state, dispatch}}>
             {props.children}

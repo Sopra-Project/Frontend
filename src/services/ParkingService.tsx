@@ -17,8 +17,7 @@ const ParkingService: IParkingService = {
             const response = await FetchHelper.get(ALL_PARKING_API_URL);
             return response.json();
         } catch (error) {
-            console.log("error", error);
-            throw error;
+            console.error("error", error);
         }
     },
     getAllParkingsThisMonth: async () => {
@@ -26,8 +25,7 @@ const ParkingService: IParkingService = {
             const response = await FetchHelper.get(ALL_PARKING_THIS_MONTH_API_URL);
             return response.json();
         } catch (error) {
-            console.log("error", error);
-            throw error;
+            console.error("error", error);
         }
     }
 };

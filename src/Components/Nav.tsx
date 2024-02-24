@@ -11,7 +11,7 @@ export const Nav = () => {
     }
 
     useEffect(() => {
-        console.log(user)
+
     }, [user])
 
     return (
