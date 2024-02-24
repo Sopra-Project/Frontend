@@ -1,18 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import AllParkingService from '../services/AllParkingService';
 import {useNavigate} from 'react-router-dom';
 import AvailableParking from './AvailableParkering';
 import moment from "moment";
+import Calendar from './ParkingDashboard/Calendar';
+import ParkingService from '../services/ParkingService';
 
 function ParkingIssuer() {
     const [data, setData] = useState<any[]>([]);
+    const [parkingMap, setParkingMap] = useState<Map<number, any[]>>(new Map());
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await AllParkingService().then((response) => {
+                await ParkingService.getAllParkingsThisMonth().then((response) => {
+                    Object.keys(response).forEach((key) => {
+                        if (response[key]) {
+                            parkingMap.set(parseInt(key), response[key]);
+                        }
+                    });
+                });
+                await ParkingService.getAllParking().then((response) => {
                     setData(response);
-                })
+                });
             } catch (error) {
                 console.log("error", error)
             }
@@ -36,7 +45,7 @@ function ParkingIssuer() {
                 <div>Loading...</div>
             ) : (
                 <>
-                    <AvailableParking data={data} parkedDataLength={data.length} />
+                    <Calendar map={parkingMap}/>
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
                             <h2 className="text-xl font-bold mb-4">Aktive parkeringer: {data.length}</h2>
@@ -58,7 +67,8 @@ function ParkingIssuer() {
                                         <td className="py-2">{moment(item.endTime).format("YYYY-MM-DD HH:mm")}</td>
                                         <td className="py-2">{item.user.name} ({item.user.email})</td>
                                         <td className="py-2">
-                                            <button className="bg-gray-400 p-2 rounded-md" onClick={() => handleButtonClick(item.id)}>
+                                            <button className="bg-gray-400 p-2 rounded-md"
+                                                    onClick={() => handleButtonClick(item.id)}>
                                                 Deaktiver
                                             </button>
                                         </td>
