@@ -1,22 +1,15 @@
-import axios from 'axios';
+import {FetchHelper} from '../utils/FetchHelper';
 
 
 const BASE_URL = 'http://localhost:8080'
 const ALL_PARKING_API_URL = BASE_URL + '/api/parking/all';
-//const ALL_PARKING_API_URL = 'https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/parking/all';
 
 export default async function AllParkingService() {
 
-    try {
-        const response = await axios.get(ALL_PARKING_API_URL, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching parking data:', error);
-        throw error; 
-    }
+    return FetchHelper.get(ALL_PARKING_API_URL).then((response) => {
+        return response.json();
+    }).catch((error) => {
+        console.log("error", error)
+    });
+
 }

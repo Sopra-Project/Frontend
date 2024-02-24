@@ -1,14 +1,19 @@
 import {useState} from "react";
 import {useLogin} from "../../hooks/useLogin";
+import isDev from "../../utils/DevDetect";
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
-    const {login} = useLogin()
+    const {login, sendCode} = useLogin()
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
-        login(email)
+        if (isDev()) {
+            login(email)
+        } else {
+            //
+        }
     }
 
 
