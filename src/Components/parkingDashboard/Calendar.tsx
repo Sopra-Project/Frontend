@@ -16,7 +16,7 @@ const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
     const handlePrevMonth = () => {
         setDisplayedMonth((prevMonth) => {
             if (prevMonth === 0) {
-                setDisplayedYear((prevYear) => prevYear - 1);
+                setDisplayedYear(displayedYear - 1);
                 return 11;
             } else {
                 return prevMonth - 1;
@@ -27,7 +27,7 @@ const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
     const handleNextMonth = () => {
         setDisplayedMonth((prevMonth) => {
             if (prevMonth === 11) {
-                setDisplayedYear((prevYear) => prevYear + 1);
+                setDisplayedYear(displayedYear + 1);
                 return 0;
             } else {
                 return prevMonth + 1;

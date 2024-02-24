@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import moment from "moment";
-import Calendar from './ParkingDashboard/Calendar';
-import ParkingService from '../services/ParkingService';
-import {ParkingSpot} from '../types/types';
+import Calendar from './Calendar';
+import ParkingService from '../../services/ParkingService';
+import {ParkingSpot} from '../../types/types';
+import {useAuthContext} from "../../hooks/useAuthContext";
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -13,9 +14,11 @@ function ParkingIssuer() {
     const day = today.getDate()
     const [selectedDate, setSelectedDate] = useState<number>(day);
 
+    const {user} = useAuthContext();
+
     useEffect(() => {
         const fetchData = async () => {
-            if (parkingMap.size === 0) {
+            if (parkingMap.size === 0 && user) {
                 await ParkingService.getAllParkingsThisMonth().then((response) => {
                     Object.keys(response).forEach((key) => {
                         if (response[key]) {
@@ -28,7 +31,7 @@ function ParkingIssuer() {
         };
         fetchData();
         setData(parkingMap.get(selectedDate) || []);
-    }, [selectedDate, parkingMap]);
+    }, [selectedDate, parkingMap, user]);
 
 
     let navigate = useNavigate();

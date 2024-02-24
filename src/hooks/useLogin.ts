@@ -5,18 +5,6 @@ export const useLogin = () => {
     const {dispatch} = useAuthContext();
 
     const login = async (email: string) => {
-        if (isDev()) {
-            loginDev(email);
-        } else {
-            loginProd(email);
-        }
-    }
-
-    const loginProd = async (email: string) => {
-        console.log('loginProd');
-    }
-
-    const loginDev = async (email: string) => {
         fetch('http://localhost:8080/api/auth/login', {
             method: 'POST',
             headers: {
@@ -31,8 +19,10 @@ export const useLogin = () => {
                 throw new Error('Network response was not ok.');
             })
             .then(data => {
-                localStorage.setItem('token', data.token);
-                dispatch({type: 'LOGIN', payload: data.token});
+                if (isDev()) {
+                    localStorage.setItem('token', data.token);
+                    dispatch({type: 'LOGIN', payload: data.token});
+                }
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
