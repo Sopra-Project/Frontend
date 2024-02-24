@@ -19,6 +19,6 @@ function App() {
             </AuthContextProvider>
         </Router>
     );
-}
+
 
 export default App;
