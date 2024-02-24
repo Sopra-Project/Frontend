@@ -3,10 +3,11 @@ import {useNavigate} from 'react-router-dom';
 import moment from "moment";
 import Calendar from './ParkingDashboard/Calendar';
 import ParkingService from '../services/ParkingService';
+import {ParkingSpot} from '../types/types';
 
 function ParkingIssuer() {
-    const [data, setData] = useState<any[]>([]);
-    const [parkingMap, setParkingMap] = useState<Map<number, any[]>>(new Map());
+    const [data, setData] = useState<ParkingSpot[]>([]);
+    const [parkingMap, setParkingMap] = useState<Map<number, ParkingSpot[]>>(new Map());
 
     const today = new Date();
     const day = today.getDate()
@@ -84,37 +85,3 @@ function ParkingIssuer() {
 }
 
 export default ParkingIssuer;
-
-
-/*
-       <div className="flex">
-           <div className="bg-gray-300 p-4 w-full">
-               <h2 className="text-xl font-bold mb-4">Aktive parkeringer</h2>
-               {data.map((item: any, index) => (
-
-                   <div key={index} className="a flex justify-between">
-                       <div className="m-2">
-                           <strong>Registration Number:</strong>
-                           <p>{item.registrationNumber}</p>
-                       </div>
-                       <div className="m-2">
-                           <strong>Start Time:</strong>
-                           <p>{item.startTime}</p>
-                       </div>
-                       <div className="m-2">
-                           <strong>End Time:</strong>
-                           <p>{item.endTime}</p>
-                       </div>
-                       <div className="m-2">
-                           <strong>User:</strong>
-                           <p>{item.user.name} ({item.user.email})</p>
-                       </div>
-                       <div className="m-2">
-                           <strong>Status:</strong>
-                           <p>{item.status.name}</p>
-                       </div>
-                   </div>
-               ))}
-           </div>
-       </div>
-       */

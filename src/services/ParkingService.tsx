@@ -1,3 +1,4 @@
+import { ParkingSpot } from '../types/types';
 import {FetchHelper} from '../utils/FetchHelper';
 
 
@@ -6,7 +7,7 @@ const ALL_PARKING_API_URL = BASE_URL + '/api/parking/all';
 const ALL_PARKING_THIS_MONTH_API_URL = BASE_URL + '/api/parking/month';
 
 export type IParkingService = {
-    getAllParking: () => Promise<any>;
+    getAllParking: () => Promise<ParkingSpot[]>;
     getAllParkingsThisMonth: () => Promise<any>;
 }
 
