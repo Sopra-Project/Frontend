@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import AvailableParking from './AvailableParkering';
 import moment from "moment";
 import Calendar from './ParkingDashboard/Calendar';
 import ParkingService from '../services/ParkingService';
@@ -9,29 +8,27 @@ function ParkingIssuer() {
     const [data, setData] = useState<any[]>([]);
     const [parkingMap, setParkingMap] = useState<Map<number, any[]>>(new Map());
 
+    const today = new Date();
+    const day = today.getDate()
+    const [selectedDate, setSelectedDate] = useState<number>(day);
+
     useEffect(() => {
         const fetchData = async () => {
-            try {
+            if (parkingMap.size === 0) {
                 await ParkingService.getAllParkingsThisMonth().then((response) => {
                     Object.keys(response).forEach((key) => {
                         if (response[key]) {
                             parkingMap.set(parseInt(key), response[key]);
                         }
                     });
+                    setData(parkingMap.get(selectedDate) || []);
                 });
-                await ParkingService.getAllParking().then((response) => {
-                    setData(response);
-                });
-            } catch (error) {
-                console.log("error", error)
             }
         };
-
         fetchData();
-    }, []);
+        setData(parkingMap.get(selectedDate) || []);
+    }, [selectedDate, parkingMap]);
 
-
-    console.log("data", data)
 
     let navigate = useNavigate();
 
@@ -45,9 +42,10 @@ function ParkingIssuer() {
                 <div>Loading...</div>
             ) : (
                 <>
-                    <Calendar map={parkingMap}/>
+                    <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate}/>
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
+                            <h1 className="text-2xl font-bold mb-4">{today.toLocaleDateString()}</h1>
                             <h2 className="text-xl font-bold mb-4">Aktive parkeringer: {data.length}</h2>
                             <table className="w-full">
                                 <thead>

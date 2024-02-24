@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 type CalendarProps = {
     map: Map<number, any[]>;
-    // selectedDate: number | null;
-    // onDayClick: (day: number) => void;
+    setSelectedDate: (day: number) => void;
+    selectedDate: number | null;
 }
-const Calendar = ({map}: CalendarProps) => {
-    //todo lift state.
-    const [selectedDate, setSelectedDate] = useState<number | null>(null);
+const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
     const daysInMonth = getDaysInMonth();
 
     function getDaysInMonth() {
@@ -33,8 +31,7 @@ const Calendar = ({map}: CalendarProps) => {
     }
 
     return (
-        <div className="max-w-xl mx-auto">
-            <h2 className="text-xl font-semibold mb-4">Calendar</h2>
+        <div className="max-w-xl mx-auto m-2">
             <div className="grid grid-cols-8 gap-1 mb-4">
                 {Array.from({length: daysInMonth}, (_, index) => index + 1).map(day => (
                     <div
