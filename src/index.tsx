@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import AuthContent from './Components/AuthContent';
 import App from './App';
 import DeactivateParking from './Components/DeactivateParkering';
 
