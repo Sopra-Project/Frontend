@@ -15,7 +15,6 @@ export const FetchHelper = {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
-            body: JSON.stringify(data)
         });
         return response.json();
     }

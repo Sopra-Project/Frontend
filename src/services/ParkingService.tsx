@@ -8,7 +8,6 @@ export type IParkingService = {
 
     getAllParking: () => Promise<any>;
     getAllParkingsThisMonth: () => Promise<any>;
-    activateParking: (registrationNumber: string, startTime: string, endTime: string) => Promise<any>;
 }
 
 const ParkingService: IParkingService = {
@@ -28,21 +27,9 @@ const ParkingService: IParkingService = {
         } catch (error) {
             console.error("error", error);
         }
-    },
-    activateParking: async (registrationNumber: string, startTime: string, endTime: string): Promise<void> => {
-        try {
-            await FetchHelper.post(BASE_URL + '/api/parking', {
-                registrationNumber: registrationNumber,
-                startTime: startTime,
-                endTime: endTime
-            });
-            console.log('Parking activated successfully');
-        } catch (error) {
-            console.error('Failed to activate parking:', error);
-            throw error;
-        }
     }
 
 };
+
 
 export default ParkingService;
