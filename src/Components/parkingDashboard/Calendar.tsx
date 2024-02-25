@@ -44,8 +44,8 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
     };
 
     const getBookingStatus = (day: number) => {
-        const bookings = map.get(selectedMonth)?.get(day) || [];
-        if (bookings.length === 1) {
+        const bookings = map.get(selectedMonth + 1)?.get(day) || [];
+        if (bookings.length <= 2 && bookings.length > 0) {
             return 'bg-yellow-300';
         } else if (bookings.length > 4) {
             return 'bg-red-300';
