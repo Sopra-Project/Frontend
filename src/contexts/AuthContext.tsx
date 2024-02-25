@@ -22,7 +22,7 @@ export const AuthContext = React.createContext<AuthContextType>({
 export const authReducer = (state: any, action: any) => {
     switch (action.type) {
         case 'LOGIN':
-            return {user: action.payload}
+            return {user: getUserFromToken(action.payload)}
         case 'LOGOUT':
             return {user: null}
         default:
@@ -51,19 +51,9 @@ const AuthContextProvider = (props: Props) => {
             }
         })
         if (token) {
-            const decoded: any = jwtDecode(token)
-            const user: User = {
-                name: decoded.name,
-                expiresIn: decoded.exp,
-                token: token,
-                building: decoded.building,
-                role: decoded.role
-            }
-            dispatch({type: 'LOGIN', payload: user})
+            dispatch({type: 'LOGIN', payload: token})
         }
     }, [])
-
-    console.log(state)
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>
@@ -93,6 +83,18 @@ const validateToken = async (token: string): Promise<boolean> => {
         console.error("Error while validating token:", error);
         return false;
     }
+}
+
+const getUserFromToken = (token: string): User => {
+    const decoded: any = jwtDecode(token)
+    const user: User = {
+        name: decoded.name,
+        expiresIn: decoded.exp,
+        token: token,
+        building: decoded.building,
+        role: decoded.role
+    }
+    return user
 }
 
 export default AuthContextProvider

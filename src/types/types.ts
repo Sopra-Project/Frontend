@@ -5,3 +5,11 @@ export type User = {
     expiresIn: number,
     token: string
 }
+
+export type ParkingSpot = {
+    id: string,
+    registrationNumber: string,
+    user: User,
+    startTime: string,
+    endTime: string
+}

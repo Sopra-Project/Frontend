@@ -1,14 +1,23 @@
 import {useState} from "react";
 import {useLogin} from "../../hooks/useLogin";
+import isDev from "../../utils/DevDetect";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
-    const {login} = useLogin()
+    const {login, sendCode} = useLogin()
+
+    const navigate = useNavigate()
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
-        login(email)
+        login(email).then(_ => {
+            if(isDev()){
+                navigate("/")
+            }
+        })
+
     }
 
 
