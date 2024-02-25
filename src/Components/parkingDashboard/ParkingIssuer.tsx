@@ -34,7 +34,7 @@ function ParkingIssuer() {
         };
         fetchData();
         setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
-    }, [selectedDate, parkingMap, user]);
+    }, [selectedDate, parkingMap, user, selectedMonth]);
 
 
     let navigate = useNavigate();
