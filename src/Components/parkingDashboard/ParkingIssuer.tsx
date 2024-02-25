@@ -41,7 +41,8 @@ function ParkingIssuer() {
     let navigate = useNavigate();
 
     const handleButtonClick = (id: number) => {
-        navigate(`q/${id}`);
+        //params: id
+        navigate(`/deactivateparking/${id}`);
     };
 
     return (
