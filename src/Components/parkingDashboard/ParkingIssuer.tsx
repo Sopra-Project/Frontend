@@ -29,12 +29,12 @@ function ParkingIssuer() {
                             parkingMap.get(parseInt(key))?.set(parseInt(innerKey), parkingSpots);
                         })
                     });
-                    setData(parkingMap.get(selectedMonth)?.get(selectedDate) || [])
+                    setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
                 });
             }
         };
         fetchData();
-        setData(parkingMap.get(selectedMonth)?.get(selectedDate) || [])
+        setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
     }, [selectedDate, parkingMap, user]);
 
 
