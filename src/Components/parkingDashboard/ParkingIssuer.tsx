@@ -9,32 +9,31 @@ import AvailableParking from '../AvailableParking';
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
-    const [parkingMap, setParkingMap] = useState<Map<number, Map<number, ParkingSpot[]>>>(new Map());
+    const [parkingMap, setParkingMap] = useState<Map<number, ParkingSpot[]>>(new Map());
 
     const today = new Date();
     const day = today.getDate()
     const [selectedDate, setSelectedDate] = useState<number>(day);
-    const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
 
     const {user} = useAuthContext();
 
     useEffect(() => {
         const fetchData = async () => {
             if (parkingMap.size === 0 && user) {
-                await ParkingService.getAllParking().then((response) => {
+                await ParkingService.getAllParkingsThisMonth().then((response) => {
                     Object.keys(response).forEach((key) => {
-                        parkingMap.set(parseInt(key), new Map());
-                        Object.keys(response[key]).forEach((innerKey) => {
-                            const parkingSpots: ParkingSpot[] = response[key][innerKey];
-                            parkingMap.get(parseInt(key))?.set(parseInt(innerKey), parkingSpots);
-                        })
+                        if (response[key]) {
+                            parkingMap.set(parseInt(key), response[key]);
+                        }
                     });
-                    setData(parkingMap.get(selectedMonth)?.get(selectedDate) || [])
+                    setData(parkingMap.get(selectedDate) || []);
+                    console.log("datamap er", parkingMap);
+                    console.log("data er", data)
                 });
             }
         };
         fetchData();
-        setData(parkingMap.get(selectedMonth)?.get(selectedDate) || [])
+        setData(parkingMap.get(selectedDate) || []);
     }, [selectedDate, parkingMap, user]);
 
 
@@ -50,15 +49,11 @@ function ParkingIssuer() {
                 <div>Loading...</div>
             ) : (
                 <>
-                    <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate}
-                              selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
-
-
+                    <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate}/>
                     <AvailableParking data={data} parkedDataLength={data.length}/>
-
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
-                            <h1 className="text-2xl font-bold mb-4">{(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
+                            <h1 className="text-2xl font-bold mb-4">{today.toLocaleDateString()}</h1>
                             <h2 className="text-xl font-bold mb-4">Aktive parkeringer: {data.length}</h2>
                             <table className="w-full">
                                 <thead>
