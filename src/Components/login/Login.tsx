@@ -1,24 +1,31 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useLogin} from "../../hooks/useLogin";
 import isDev from "../../utils/DevDetect";
 import {useNavigate} from "react-router-dom";
+import {useAuthContext} from "../../hooks/useAuthContext";
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const {login, sendCode} = useLogin()
+    const {user} = useAuthContext()
 
     const navigate = useNavigate()
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
-        login(email).then(_ => {
-            if(isDev()){
-                navigate("/")
-            }
-        })
-
+        void login(email)
     }
+
+    useEffect(() => {
+        if (user && isDev()) {
+            if(user.role === 'SUPER_ADMIN') {
+                navigate('/superadmin')
+            } else {
+                navigate('/')
+            }
+        }
+    }, [navigate, user])
 
 
     return (

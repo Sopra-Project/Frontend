@@ -8,6 +8,7 @@ import AuthContextProvider from './contexts/AuthContext';
 import Nav from './Components/Nav';
 import Dashboard from './Components/dashboard/Dashboard';
 import ActivateParking from './Components/Activateparking';
+import {SuperAdminDashboard} from "./Components/superadminDashboard/SuperAdminDashboard";
 
 function App() {
     return (
@@ -21,10 +22,11 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/deactivateparking/:id" element={<DeactivateParking/>}/>
                     <Route path="/dashboard" element={<Dashboard/>}/>
+                    <Route path="/superadmin" element={<SuperAdminDashboard/>}/>
                 </Routes>
             </AuthContextProvider>
         </Router>
     );
 }
-    
+
 export default App;
