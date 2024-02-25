@@ -21,7 +21,7 @@ const ParkingService: IParkingService = {
     },
     getParkingID: async (id:number) => {
         try {
-            const response = await FetchHelper.get(ALL_PARKING_API_URL + '/api/parking/'+ id);
+            const response = await FetchHelper.get(BASE_URL + '/api/parking/'+ id);
             return response.json();
         } catch (error) {
             console.error("cant get the id of the parking", error);
