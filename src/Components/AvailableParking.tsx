@@ -13,7 +13,7 @@ const AvailableParking: React.FC<AvailableParkingProps> = ({ data, parkedDataLen
     let navigate = useNavigate();
 
     const handleButtonClick = () => {
-        // navigate(`/activateparking`);
+        navigate(`/activeparking`);
     };
 
 

@@ -1,14 +1,12 @@
-import { ParkingSpot } from '../types/types';
 import {FetchHelper} from '../utils/FetchHelper';
 
 
 const BASE_URL = 'http://localhost:8080'
 const ALL_PARKING_API_URL = BASE_URL + '/api/parking/all';
-const ALL_PARKING_THIS_MONTH_API_URL = BASE_URL + '/api/parking/month';
 
 export type IParkingService = {
-    getAllParking: () => Promise<ParkingSpot[]>;
-    getAllParkingsThisMonth: () => Promise<any>;
+    getAllParking: () => Promise<any>;
+
     activateParking: (registrationNumber: string, startTime: string, endTime: string) => Promise<any>;
 }
 
@@ -16,14 +14,6 @@ const ParkingService: IParkingService = {
     getAllParking: async () => {
         try {
             const response = await FetchHelper.get(ALL_PARKING_API_URL);
-            return response.json();
-        } catch (error) {
-            console.error("error", error);
-        }
-    },
-    getAllParkingsThisMonth: async () => {
-        try {
-            const response = await FetchHelper.get(ALL_PARKING_THIS_MONTH_API_URL);
             return response.json();
         } catch (error) {
             console.error("error", error);

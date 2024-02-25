@@ -1,16 +1,40 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import ParkingService from '../services/ParkingService';
 
 const ActivateParking = () => {
-    // const ActivateParking = ({ onSubmit, onCancel }) => {
-
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const [registrationNumber, setRegistrationNumber] = useState('');
-    const [duration, setDuration] = useState(30); 
+    const [duration, setDuration] = useState(30);
+    const [showPopup, setShowPopup] = useState(false);
 
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
+    const addMinutes = (date: Date, minutes: number): Date => {
+        const newDate = new Date(date);
+        newDate.setMinutes(newDate.getMinutes() + minutes);
+        newDate.setHours(23, 59, 59);
+        return newDate;
+    };
+
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
-        // onSubmit(registrationNumber, duration);
+        try {
+            const startTime: string = new Date().toISOString();
+            const endTime: string = addMinutes(new Date(), duration).toISOString();
+            console.log('startTime', startTime);
+            console.log('endTime', endTime);
+            console.log('Form submitted');
+            console.log('registrationNumber:', registrationNumber);
+            console.log('duration:', duration);
+
+
+            await ParkingService.activateParking(registrationNumber, startTime, endTime);
+            setShowPopup(true);
+            setTimeout(() => {
+                navigate('/');
+            }, 2000); 
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -52,13 +76,18 @@ const ActivateParking = () => {
                     <div className="flex justify-between">
                         <button type="submit" className="bg-gray-400 text-white px-4 py-2 rounded-md m-2">Aktiver</button>
                         <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2" onClick={() => navigate('/')}>
-                        Lukk vindu
-                    </button>
+                            Lukk vindu
+                        </button>
                     </div>
                 </form>
+                {showPopup && (
+                    <div className="bg-gray-300 p-3 mt-3 rounded-md">
+                        Parking aktivert. Redirekte til dashboard...
+                    </div>
+                )}
             </div>
         </div>
     );
-}
+};
 
 export default ActivateParking;
