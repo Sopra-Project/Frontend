@@ -13,10 +13,10 @@ const AvailableParking: React.FC<AvailableParkingProps> = ({ data, parkedDataLen
     let navigate = useNavigate();
 
     const handleButtonClick = () => {
-        // navigate(`/activateparking`);
+        navigate(`/activateparking`);
     };
-    
-    
+
+
     return (
         <div className="flex">
             <div className="bg-gray-300 p-4 w-full flex justify-between border-b border-gray-700">

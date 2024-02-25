@@ -5,6 +5,7 @@ import Calendar from './Calendar';
 import ParkingService from '../../services/ParkingService';
 import {ParkingSpot} from '../../types/types';
 import {useAuthContext} from "../../hooks/useAuthContext";
+import AvailableParking from '../AvailableParking';
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -51,6 +52,10 @@ function ParkingIssuer() {
                 <>
                     <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate}
                               selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
+
+
+                    <AvailableParking data={data} parkedDataLength={data.length}/>
+
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
                             <h1 className="text-2xl font-bold mb-4">{(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
