@@ -1,41 +1,39 @@
 import React, {useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {ParkingSpot} from "../../types/types";
 
 type CalendarProps = {
-    map: Map<number, any[]>;
+    map: Map<number, Map<number, ParkingSpot[]>>;
     setSelectedDate: (day: number) => void;
     selectedDate: number | null;
+    setSelectedMonth: (month: number) => void;
+    selectedMonth: number;
 };
 
-const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
+const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selectedMonth}: CalendarProps) => {
     const currentDate = new Date();
-    const [displayedMonth, setDisplayedMonth] = useState(currentDate.getMonth());
     const [displayedYear, setDisplayedYear] = useState(currentDate.getFullYear());
 
     const handlePrevMonth = () => {
-        setDisplayedMonth((prevMonth) => {
-            if (prevMonth === 0) {
-                setDisplayedYear(displayedYear - 1);
-                return 11;
-            } else {
-                return prevMonth - 1;
-            }
-        });
+        if (selectedMonth === 0) {
+            setDisplayedYear(displayedYear - 1);
+            setSelectedMonth(11);
+        } else {
+            setSelectedMonth(selectedMonth - 1);
+        }
     };
 
     const handleNextMonth = () => {
-        setDisplayedMonth((prevMonth) => {
-            if (prevMonth === 11) {
-                setDisplayedYear(displayedYear + 1);
-                return 0;
-            } else {
-                return prevMonth + 1;
-            }
-        });
+        if (selectedMonth === 11) {
+            setDisplayedYear(displayedYear + 1);
+            setSelectedMonth(0);
+        } else {
+            setSelectedMonth(selectedMonth + 1);
+        }
     };
 
-    const daysInMonth = getDaysInMonth(displayedYear, displayedMonth);
+    const daysInMonth = getDaysInMonth(displayedYear, selectedMonth);
 
     function getDaysInMonth(year: number, month: number) {
         return new Date(year, month + 1, 0).getDate();
@@ -46,7 +44,7 @@ const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
     };
 
     const getBookingStatus = (day: number) => {
-        const bookings = map.get(day) || [];
+        const bookings = map.get(selectedMonth)?.get(day) || [];
         if (bookings.length === 1) {
             return 'bg-yellow-300';
         } else if (bookings.length > 4) {
@@ -56,8 +54,9 @@ const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
         }
     };
 
+
     const renderMonth = () => {
-        const firstDayOfMonth = new Date(displayedYear, displayedMonth, 1);
+        const firstDayOfMonth = new Date(displayedYear, selectedMonth, 1);
         const firstDayOfWeek = firstDayOfMonth.getDay();
         const days = [];
 
@@ -66,7 +65,7 @@ const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
-            const date = new Date(displayedYear, displayedMonth, day + 1);
+            const date = new Date(displayedYear, selectedMonth, day + 1);
             const isPastDay = date < currentDate;
             days.push(
                 <div
@@ -80,7 +79,7 @@ const Calendar = ({map, setSelectedDate, selectedDate}: CalendarProps) => {
                 </div>
             );
         }
-        const date = new Date(displayedYear, displayedMonth);
+        const date = new Date(displayedYear, selectedMonth);
 
         return (
             <div className="month">
