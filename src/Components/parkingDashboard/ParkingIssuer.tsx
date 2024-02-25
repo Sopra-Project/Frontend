@@ -5,6 +5,7 @@ import Calendar from './Calendar';
 import ParkingService from '../../services/ParkingService';
 import {ParkingSpot} from '../../types/types';
 import {useAuthContext} from "../../hooks/useAuthContext";
+import AvailableParking from '../AvailableParking';
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -26,6 +27,8 @@ function ParkingIssuer() {
                         }
                     });
                     setData(parkingMap.get(selectedDate) || []);
+                    console.log("datamap er", parkingMap);
+                    console.log("data er", data)
                 });
             }
         };
@@ -47,6 +50,7 @@ function ParkingIssuer() {
             ) : (
                 <>
                     <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate}/>
+                    <AvailableParking data={data} parkedDataLength={data.length}/>
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
                             <h1 className="text-2xl font-bold mb-4">{today.toLocaleDateString()}</h1>
