@@ -1,7 +1,7 @@
 export type User = {
     name: string,
     building: string,
-    role: "ADMIN" | "USER" | "INSPETOR",
+    role: "ADMIN" | "USER" | "INSPETOR" | "SUPER_ADMIN",
     expiresIn: number,
     token: string
 }
