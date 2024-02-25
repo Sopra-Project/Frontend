@@ -49,9 +49,6 @@ const ActivateParking = () => {
                             id="registrationNumber"
                             value={registrationNumber}
                             onChange={(e) => setRegistrationNumber(e.target.value)}
-                            maxLength={7} // 2 letters + 5 numbers
-                            pattern="[A-Za-z]{2}[0-9]{5}" // Example: AB12345
-                            required
                             className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                         />
                     </div>
@@ -64,13 +61,13 @@ const ActivateParking = () => {
                             className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                         >
                             <option value={30}>30 min</option>
-                            <option value={60}>1 hour</option>
-                            <option value={90}>1 hour 30 min</option>
-                            <option value={120}>2 hours</option>
-                            <option value={150}>2 hours 30 min</option>
-                            <option value={180}>3 hours</option>
-                            <option value={210}>3 hours 30 min</option>
-                            <option value={240}>4 hours</option>
+                            <option value={60}>1t</option>
+                            <option value={90}>1t 30 min</option>
+                            <option value={120}>2t</option>
+                            <option value={150}>2t 30 min</option>
+                            <option value={180}>3t</option>
+                            <option value={210}>3t 30 min</option>
+                            <option value={240}>4t</option>
                         </select>
                     </div>
                     <div className="flex justify-between">

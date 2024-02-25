@@ -23,21 +23,15 @@ function DeactivateParking() {
     }, [id, navigate]);
 
     const handleDeactivateClick = async () => {
-        // try {
-        //     if (id !== null) {
-        //         //await axios.put(`https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/parking/${id}/free`);
-        //         await axios.put(`http://localhost:8080/api/parking/${id}/free`);
-        //         navigate('/');
-        //         console.log()
-        //     } else {
-        //         console.error("Parking spot ID is null");
-        //     }
-        // } catch (error) {
-        //     console.error("Error deactivating parking:", error);
-            
-        // }
-
-    };   
+        try {
+            console.log('Deactivating parking spot with ID:', id);
+            await ParkingService.deactivateParking(Number(id));
+            console.log('Parking spot deactivated successfully');
+            navigate('/');
+        } catch (error) {
+            console.error('Error deactivating parking:', error);
+        }
+    };  
 
     return (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">

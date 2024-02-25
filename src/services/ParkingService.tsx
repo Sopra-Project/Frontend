@@ -8,6 +8,7 @@ export type IParkingService = {
     getAllParking: () => Promise<any>;
     getParkingID: (id:number) => Promise<any>;
     activateParking: (registrationNumber: string, startTime: string, endTime: string) => Promise<any>;
+    deactivateParking: (id: number) => Promise<any>;
 }
 
 const ParkingService: IParkingService = {
@@ -25,6 +26,16 @@ const ParkingService: IParkingService = {
             return response.json();
         } catch (error) {
             console.error("cant get the id of the parking", error);
+        }
+    },
+    deactivateParking: async (id: number) => {
+        try {
+            const response = await FetchHelper.delete(BASE_URL + '/api/parking/' + id);
+            console.log('Parking deactivated successfully');
+            return response;
+        } catch (error) {
+            console.error('Failed to deactivate parking:', error);
+            throw error;
         }
     },
     activateParking: async (registrationNumber: string, startTime: string, endTime: string): Promise<void> => {
