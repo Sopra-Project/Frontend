@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import ParkingService from '../services/ParkingService';
+import ParkingService from '../../services/ParkingService';
 
 const ActivateParking = () => {
     const navigate = useNavigate();

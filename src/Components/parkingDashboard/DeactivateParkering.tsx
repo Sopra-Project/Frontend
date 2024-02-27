@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ParkingService from '../services/ParkingService';
+import ParkingService from '../../services/ParkingService';
 
 function DeactivateParking() {
     const { id } = useParams();

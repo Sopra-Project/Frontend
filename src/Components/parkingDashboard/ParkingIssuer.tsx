@@ -5,7 +5,7 @@ import Calendar from './Calendar';
 import ParkingService from '../../services/ParkingService';
 import {ParkingSpot} from '../../types/types';
 import {useAuthContext} from "../../hooks/useAuthContext";
-import AvailableParking from '../AvailableParking';
+import AvailableParking from './AvailableParking';
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
