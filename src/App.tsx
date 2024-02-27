@@ -17,7 +17,6 @@ function App() {
                 <Header/>
                 <Nav/>
                 <Routes>
-                    <Route path="/activateparking" element={<Activateparking onSubmit={null} onCancel={null} onClose={null}/>}/>
                     <Route path="/" element={<ParkingIssuer/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/deactivateparking/:id" element={<DeactivateParking/>}/>

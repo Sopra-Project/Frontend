@@ -73,12 +73,14 @@ const Activateparking = ({ onSubmit, onCancel, onClose }: { onSubmit: any, onCan
                     </div>
                     <div className="flex justify-between">
                         <button type="submit" className="bg-gray-400 text-white px-4 py-2 rounded-md m-2">Aktiver</button>
-                        
-                    </div>
-                </form>
-                <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2" onClick={() => onCancel()}>
+                        <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2" onClick={() => onCancel()}>
                             Lukk vindu
                         </button>
+                        
+                    </div>
+                    
+                </form>
+                
                 {showPopup && (
                     <div className="bg-gray-300 p-3 mt-3 rounded-md">
                         Parking aktivert. Redirekte til dashboard...
