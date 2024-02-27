@@ -82,60 +82,66 @@ function ParkingIssuer() {
                 <div>Loading...</div>
             ) : (
                 <>
-                <Calendar 
-                    map={parkingMap} 
-                    setSelectedDate={setSelectedDate} 
-                    selectedDate={selectedDate} 
-                    selectedMonth={selectedMonth} 
-                    setSelectedMonth={setSelectedMonth} 
-                />
-                <ActivateParking 
-                    showModal={showActivateParking} 
-                    setShowModal={setShowActivateParking} 
-                    activateParking={activateParking} 
-                />
-                {selectedParkingItemId !== null && (
-                    <DeactivateParking 
-                        showModal={selectedParkingItemId !== null}
-                        setShowModal={setShowDeactivateParking}
-                        handleDeactivateParking={handleDeactivateParking}
-                        handleCloseDeactivateParking={handleCloseDeactivateParking}
-                        id={selectedParkingItemId} 
-                    />
-                )}
-
-                    <div className="flex">
-                        <div className="bg-gray-300 p-4 w-full">
-                            <h1 className="text-2xl font-bold mb-4">{(selectedDate).toString() + '/' + (selectedMonth + 1).toString()}</h1>
-                            <h2 className="text-xl font-bold mb-4">Aktive parkeringer: {data.length}</h2>
-                            <table className="w-full">
-                                <thead>
-                                    <tr className="border-b border-gray-400">
-                                        <th className="text-left py-2">Registreringsnr</th>
-                                        <th className="text-left py-2">Fra dato/klokkelsett</th>
-                                        <th className="text-left py-2">Til dato/klokkelsett</th>
-                                        <th className="text-left py-2">Bruker</th>
-                                        <th className="text-left py-2"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {data.map((item: any, index) => (
-                                        <tr key={index} className="border-b border-gray-400">
-                                            <td className="py-2">{item.registrationNumber}</td>
-                                            <td className="py-2">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
-                                            <td className="py-2">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
-                                            <td className="py-2">{item.user.name} ({item.user.email})</td>
-                                            <td className="py-2">
-                                                <button className="bg-gray-400 p-2 rounded-md" onClick={() => handleDeactivateClick(item.id)}>
-                                                    Deaktiver
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                    <div className="flex flex-col lg:flex-row justify-between">
+                        <div className="w-full lg:w-2/5 m-4 lg:m-4"> 
+                            <Calendar
+                                map={parkingMap}
+                                setSelectedDate={setSelectedDate}
+                                selectedDate={selectedDate}
+                                selectedMonth={selectedMonth}
+                                setSelectedMonth={setSelectedMonth}
+                            />
+                        </div>
+                        <div className="w-full lg:w-3/5 m-4 lg:m-4">
+                            {selectedParkingItemId !== null && (
+                                <DeactivateParking
+                                    showModal={selectedParkingItemId !== null}
+                                    setShowModal={setShowDeactivateParking}
+                                    handleDeactivateParking={handleDeactivateParking}
+                                    handleCloseDeactivateParking={handleCloseDeactivateParking}
+                                    id={selectedParkingItemId}
+                                />
+                            )}
+                        <div className="rounded-lg bg-gray-100 rounded-lg">
+                            <div className="p-6">
+                                <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full border-collapse">
+                                        <thead className="bg-gray-200">
+                                            <tr>
+                                                <th className="border border-gray-300 py-2 px-4">Registration Number</th>
+                                                <th className="border border-gray-300 py-2 px-4">Start Time</th>
+                                                <th className="border border-gray-300 py-2 px-4">End Time</th>
+                                                <th className="border border-gray-300 py-2 px-4">User</th>
+                                                <th className="border border-gray-300 py-2 px-4"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {data.map((item: any, index) => (
+                                            <tr key={index} className="text-gray-700">
+                                                <td className="border border-gray-300 py-2 px-4">{item.registrationNumber}</td>
+                                                <td className="border border-gray-300 py-2 px-4">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                <td className="border border-gray-300 py-2 px-4">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                <td className="border border-gray-300 py-2 px-4">{item.user.name} ({item.user.email})</td>
+                                                <td className="border border-gray-300 py-2 px-4">
+                                                    <button className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md" onClick={() => handleDeactivateClick(item.id)}>
+                                                        Deaktiver
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                    <ActivateParking
+                        showModal={showActivateParking}
+                        setShowModal={setShowActivateParking}
+                        activateParking={activateParking}
+                    />
                 </>
             )}
         </>

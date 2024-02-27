@@ -1,5 +1,5 @@
-import {useNavigate} from 'react-router-dom';
-import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import ParkingService from '../../services/ParkingService';
 
 type ActivateParkingProps = {
@@ -8,7 +8,7 @@ type ActivateParkingProps = {
     activateParking: (registrationNumber: string, startTime: string, endTime: string) => void;
 }
 
-const ActivateParking = ({showModal, setShowModal, activateParking}: ActivateParkingProps) => {
+const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateParkingProps) => {
     const navigate = useNavigate();
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [duration, setDuration] = useState(30);
@@ -19,7 +19,7 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
         newDate.setMinutes(newDate.getMinutes() + minutes);
         return newDate;
     };
-    
+
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -36,24 +36,22 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
 
     return (
         <>
-        <div className="flex">
-            <div className="bg-gray-300 p-4 w-full flex justify-between border-b border-gray-700">
-                <h2 className="text-xl font-bold mb-4">Tilgjengelige parkeringer: {null}</h2>
-                <button
-                onClick={() => setShowModal(true)}
-                className="bg-gray-400 p-3 rounded-md m-4">Aktiver parkering
-            </button>
+            <div className="flex">
+            <button
+    onClick={() => setShowModal(true)}
+    className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 m-4">
+    Aktiver parkering
+</button>
+
             </div>
-            </div>
-            
+
             {showModal && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">
-                    <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+                    <div className="bg-white p-6 rounded-lg shadow-lg">
                         <h2 className="text-2xl font-bold mb-4">Aktiver parking</h2>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-4">
-                                <label htmlFor="registrationNumber"
-                                       className="block text-sm font-medium text-gray-700">Registreringsnummer</label>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <label htmlFor="registrationNumber" className="block text-sm font-medium text-gray-700">Registreringsnummer</label>
                                 <input
                                     type="text"
                                     id="registrationNumber"
@@ -63,9 +61,8 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
                                     className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label htmlFor="duration"
-                                       className="block text-sm font-medium text-gray-700">Varighet</label>
+                            <div>
+                                <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Varighet</label>
                                 <select
                                     id="duration"
                                     value={duration}
@@ -83,19 +80,14 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
                                 </select>
                             </div>
                             <div className="flex justify-between">
-                                <button type="submit"
-                                        className="bg-gray-400 text-white px-4 py-2 rounded-md m-2">Aktiver
-                                </button>
-                                <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2"
-                                onClick={() => setShowModal(false)}>
-                            Lukk vindu
-                        </button>
+                            <button type="submit" className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md m-2">Aktiver</button>
+<button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md m-2" onClick={() => setShowModal(false)}>Lukk vindu</button>
 
                             </div>
                         </form>
-                        
                     </div>
-                </div>)}
+                </div>
+            )}
         </>
     );
 };
