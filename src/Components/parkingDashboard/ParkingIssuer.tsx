@@ -33,7 +33,7 @@ function ParkingIssuer() {
                 });
             }
         };
-        fetchData();
+        void fetchData();
         setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
     }, [selectedDate, parkingMap, user, selectedMonth]);
 
