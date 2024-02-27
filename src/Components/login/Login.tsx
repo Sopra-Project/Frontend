@@ -1,37 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLogin } from "../../hooks/useLogin";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useLogin} from "../../hooks/useLogin";
 import isDev from "../../utils/DevDetect";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import {useAuthContext} from "../../hooks/useAuthContext";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
-    const { login, sendCode } = useLogin();
-    const { user } = useAuthContext();
+    const {login, sendCode} = useLogin();
+    const {user} = useAuthContext();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Anta at login funksjonen nå tar både e-post og kode, eller tilpass etter faktisk bruk
-        login(email); // Tilpass denne til din faktisk implementerte logikk
+        void login(email) //todo fix login to return response.
     };
-
-    // Implementasjon for sendCode kommentert ut inntil videre
-    /*
-    const handleSendCode = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        // Implementer logikken for å faktisk sende kode her
-        console.log("Kode sendt til:", email);
-    };
-    */
 
     useEffect(() => {
-        if (user && isDev()) {
-            if(user.role === 'SUPER_ADMIN') {
+        if (user) {
+            if (user.role === 'SUPER_ADMIN') {
                 navigate('/superadmin');
             } else {
-                navigate('/dashboard'); // Endret fra '/' for å matche oppgavens instruksjoner
+                navigate('/dashboard');
             }
         }
     }, [navigate, user]);
@@ -63,14 +53,13 @@ const Login = () => {
                         placeholder="Skriv inn kode her"
                     />
                 </div>
-                {/* Send kode-knappen er kommentert ut inntil videre
                 <button
-                    onClick={handleSendCode}
+                    onClick={() => sendCode(email, "t")}
                     type="button"
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-800 bg-gray-200 hover:bg-gray-300 mb-4">
                     Send Kode
                 </button>
-                */}
+
                 <button
                     type="submit"
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700">
