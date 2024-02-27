@@ -1,6 +1,6 @@
 import React, {useEffect, useReducer} from 'react';
 import {jwtDecode} from "jwt-decode";
-import {User} from "../types/types"
+import {AuthUser} from "../types/types"
 import {useNavigate} from 'react-router-dom';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 interface AuthContextType {
     dispatch: React.Dispatch<any>;
-    user: User | null;
+    user: AuthUser | null;
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
@@ -85,9 +85,9 @@ const validateToken = async (token: string): Promise<boolean> => {
     }
 }
 
-const getUserFromToken = (token: string): User => {
+const getUserFromToken = (token: string): AuthUser => {
     const decoded: any = jwtDecode(token)
-    const user: User = {
+    const user: AuthUser = {
         name: decoded.name,
         expiresIn: decoded.exp,
         token: token,

@@ -1,21 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {User} from "../../types/types";
+import AdminService from "../../services/AdminService";
 
-interface Role {
-    id: number;
-    authority: string;
-}
-
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    role: Role;
-    building: {
-        id: number;
-        name: string;
-    };
-}
 
 const UsersTable = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -24,36 +11,13 @@ const UsersTable = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-            const fetchSessions = async () => {
-                    try {
-                        const response = await fetch('http://localhost:8080/api/user/all',
-                            {
-                                method: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer ' + localStorage.getItem('token') || ''
-                                }
-                            }
-                        );
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        const data: User[] = await response.json();
-                        setUsers(data);
-                    } catch
-                        (error) {
-                        if (error instanceof Error) {
-                            setError(error.toString());
-                        } else {
-                            setError('An unknown error occurred');
-                        }
-                    } finally {
-                        setLoading(false);
-                    }
-                }
-            ;
-
-            fetchSessions();
+            AdminService.getAllUsers().then((data) => {
+                setUsers(data);
+                setLoading(false);
+            }).catch((error) => {
+                setError(error);
+                setLoading(false);
+            })
         }, []
     )
     ;
@@ -87,8 +51,12 @@ const UsersTable = () => {
                         <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{user.role.authority}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                            <button onClick={handleEditClick} className="px-4 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Edit</button>
-                            <button onClick={handleDeleteClick} className="px-4 py-2 ml-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Delete</button>
+                            <button onClick={handleEditClick}
+                                    className="px-4 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Edit
+                            </button>
+                            <button onClick={handleDeleteClick}
+                                    className="px-4 py-2 ml-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Delete
+                            </button>
                         </td>
                     </tr>
                 ))}
