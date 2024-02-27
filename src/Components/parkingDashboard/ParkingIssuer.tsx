@@ -109,10 +109,10 @@ function ParkingIssuer() {
                                     <table className="w-full border-collapse">
                                         <thead className="bg-gray-200">
                                             <tr>
-                                                <th className="border border-gray-300 py-2 px-4">Registration Number</th>
-                                                <th className="border border-gray-300 py-2 px-4">Start Time</th>
-                                                <th className="border border-gray-300 py-2 px-4">End Time</th>
-                                                <th className="border border-gray-300 py-2 px-4">User</th>
+                                                <th className="border border-gray-300 py-2 px-4">Registreringsnr</th>
+                                                <th className="border border-gray-300 py-2 px-4">Start Tid</th>
+                                                <th className="border border-gray-300 py-2 px-4">Slutt Tid</th>
+                                                <th className="border border-gray-300 py-2 px-4">Bruker</th>
                                                 <th className="border border-gray-300 py-2 px-4"></th>
                                             </tr>
                                         </thead>
