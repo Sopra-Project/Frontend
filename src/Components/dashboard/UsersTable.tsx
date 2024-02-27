@@ -18,7 +18,7 @@ interface User {
 }
 
 const UsersTable = () => {
-    const [sessions, setSessions] = useState<User[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -39,7 +39,7 @@ const UsersTable = () => {
                             throw new Error('Network response was not ok');
                         }
                         const data: User[] = await response.json();
-                        setSessions(data);
+                        setUsers(data);
                     } catch
                         (error) {
                         if (error instanceof Error) {
@@ -77,17 +77,15 @@ const UsersTable = () => {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Building</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                {sessions.map((session) => (
-                    <tr key={session.id}>
-                        <td className="px-6 py-4 whitespace-nowrap">{session.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{session.email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{session.role.authority}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{session.building.name}</td>
+                {users.map((user) => (
+                    <tr key={user.id}>
+                        <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{user.role.authority}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                             <button onClick={handleEditClick} className="px-4 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Edit</button>
                             <button onClick={handleDeleteClick} className="px-4 py-2 ml-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Delete</button>

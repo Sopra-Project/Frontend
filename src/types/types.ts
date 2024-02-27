@@ -13,3 +13,9 @@ export type ParkingSpot = {
     startTime: string,
     endTime: string
 }
+
+export type Building = {
+    id: string,
+    name: string,
+    totalParkingSpots: number,
+}

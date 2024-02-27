@@ -5,7 +5,7 @@ import Calendar from './Calendar';
 import ParkingService from '../../services/ParkingService';
 import {ParkingSpot} from '../../types/types';
 import {useAuthContext} from "../../hooks/useAuthContext";
-import AvailableParking from '../AvailableParking';
+import AvailableParking from './AvailableParking';
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -33,9 +33,9 @@ function ParkingIssuer() {
                 });
             }
         };
-        fetchData();
+        void fetchData();
         setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
-    }, [selectedDate, parkingMap, user]);
+    }, [selectedDate, parkingMap, user, selectedMonth]);
 
 
     let navigate = useNavigate();
