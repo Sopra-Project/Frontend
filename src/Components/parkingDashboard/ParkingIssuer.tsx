@@ -5,7 +5,7 @@ import Calendar from './Calendar';
 import ParkingService from '../../services/ParkingService';
 import {ParkingSpot} from '../../types/types';
 import {useAuthContext} from "../../hooks/useAuthContext";
-import AvailableParking from './AvailableParking';
+import ActivateParking from "./ActivateParking";
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -16,29 +16,42 @@ function ParkingIssuer() {
     const [selectedDate, setSelectedDate] = useState<number>(day);
     const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
 
+    const [showActivateParking, setShowActivateParking] = useState(false);
+
     const {user} = useAuthContext();
 
     useEffect(() => {
-        const fetchData = async () => {
-            if (parkingMap.size === 0 && user) {
-                await ParkingService.getAllParking().then((response) => {
-                    Object.keys(response).forEach((key) => {
-                        parkingMap.set(parseInt(key), new Map());
-                        Object.keys(response[key]).forEach((innerKey) => {
-                            const parkingSpots: ParkingSpot[] = response[key][innerKey];
-                            parkingMap.get(parseInt(key))?.set(parseInt(innerKey), parkingSpots);
-                        })
-                    });
-                    setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
-                });
-            }
-        };
-        void fetchData();
+        if (parkingMap.size === 0 && user) {
+            void fetchData();
+        }
         setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
-    }, [selectedDate, parkingMap, user, selectedMonth]);
+    }, [selectedDate, parkingMap, user, selectedMonth, showActivateParking]);
+
+
+    const fetchData = async () => {
+        await ParkingService.getAllParking().then((response) => {
+            Object.keys(response).forEach((key) => {
+                parkingMap.set(parseInt(key), new Map());
+                Object.keys(response[key]).forEach((innerKey) => {
+                    const parkingSpots: ParkingSpot[] = response[key][innerKey];
+                    parkingMap.get(parseInt(key))?.set(parseInt(innerKey), parkingSpots);
+                })
+            });
+            setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
+        });
+    };
 
 
     let navigate = useNavigate();
+
+    const activateParking = async (registrationNumber: string, startTime: string, endTime: string) => {
+        await ParkingService.activateParking(registrationNumber, startTime, endTime).then((response) => {
+            if (response.status === 200) {
+                fetchData();
+            }
+            setShowActivateParking(false);
+        });
+    }
 
     const handleButtonClick = (id: number) => {
         //params: id
@@ -53,7 +66,8 @@ function ParkingIssuer() {
                 <>
                     <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate}
                               selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
-                    <AvailableParking data={data} parkedDataLength={data.length}/>
+                    <ActivateParking showModal={showActivateParking} setShowModal={setShowActivateParking}
+                                     activateParking={activateParking}/>
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
                             <h1 className="text-2xl font-bold mb-4">{(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>

@@ -6,7 +6,7 @@ const ALL_PARKING_API_URL = BASE_URL + '/api/parking/all';
 
 export type IParkingService = {
     getAllParking: () => Promise<any>;
-    getParkingID: (id:number) => Promise<any>;
+    getParkingID: (id: number) => Promise<any>;
     activateParking: (registrationNumber: string, startTime: string, endTime: string) => Promise<any>;
     deactivateParking: (id: number) => Promise<any>;
 }
@@ -20,9 +20,9 @@ const ParkingService: IParkingService = {
             console.error("error", error);
         }
     },
-    getParkingID: async (id:number) => {
+    getParkingID: async (id: number) => {
         try {
-            const response = await FetchHelper.get(BASE_URL + '/api/parking/'+ id);
+            const response = await FetchHelper.get(BASE_URL + '/api/parking/' + id);
             return response.json();
         } catch (error) {
             console.error("cant get the id of the parking", error);
@@ -40,12 +40,12 @@ const ParkingService: IParkingService = {
     },
     activateParking: async (registrationNumber: string, startTime: string, endTime: string): Promise<void> => {
         try {
-            await FetchHelper.post(BASE_URL + '/api/parking', {
+            const response = await FetchHelper.post(BASE_URL + '/api/parking', {
                 registrationNumber: registrationNumber,
                 startTime: startTime,
                 endTime: endTime
             });
-            console.log('Parking activated successfully');
+            return response;
         } catch (error) {
             console.error('Failed to activate parking:', error);
             throw error;

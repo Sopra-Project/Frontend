@@ -1,6 +1,6 @@
 import './App.css';
 import ParkingIssuer from './Components/parkingDashboard/ParkingIssuer';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from './Components/Header';
 import Login from './Components/login/Login';
 import DeactivateParking from './Components/parkingDashboard/DeactivateParkering';
@@ -8,7 +8,6 @@ import AuthContextProvider from './contexts/AuthContext';
 import Nav from './Components/Nav';
 import Dashboard from './Components/dashboard/Dashboard';
 import {SuperAdminDashboard} from "./Components/superadminDashboard/SuperAdminDashboard";
-import Activateparking from './Components/parkingDashboard/Activateparking';
 
 function App() {
     return (
