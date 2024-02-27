@@ -21,8 +21,7 @@ export const Nav = () => {
                     <Link to="/" className="text-white hover:text-gray-300">Hjem</Link>
                     {user && user.role === "ADMIN" && (
                         <>
-                            <Link to="/dashboard" className="text-white hover:text-gray-300 ml-4">Brukere</Link>
-                            <Link to="/create-user" className="text-white hover:text-gray-300 ml-4">Opprett ny bruker</Link>
+                            <Link to="/dashboard" className="text-white hover:text-gray-300 ml-4">Brukeradministrasjon</Link>
                         </>
                     )}
                     <ul className="flex space-x-4">
