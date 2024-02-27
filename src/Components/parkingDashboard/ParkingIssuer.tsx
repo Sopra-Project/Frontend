@@ -82,8 +82,8 @@ function ParkingIssuer() {
                 <div>Loading...</div>
             ) : (
                 <>
-                    <div className="flex flex-col lg:flex-row justify-between">
-                        <div className="w-full lg:w-2/5 m-4 lg:m-4"> 
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div className="lg:col-span-1 m-4">
                             <Calendar
                                 map={parkingMap}
                                 setSelectedDate={setSelectedDate}
@@ -92,7 +92,7 @@ function ParkingIssuer() {
                                 setSelectedMonth={setSelectedMonth}
                             />
                         </div>
-                        <div className="w-full lg:w-3/5 m-4 lg:m-4">
+                        <div className="lg:col-span-1 m-4">
                             {selectedParkingItemId !== null && (
                                 <DeactivateParking
                                     showModal={selectedParkingItemId !== null}
@@ -102,41 +102,41 @@ function ParkingIssuer() {
                                     id={selectedParkingItemId}
                                 />
                             )}
-                        <div className="rounded-lg bg-gray-100 rounded-lg">
-                            <div className="p-6">
-                                <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
-                                <div className="overflow-x-auto">
-                                    <table className="w-full border-collapse">
-                                        <thead className="bg-gray-200">
-                                            <tr>
-                                                <th className="border border-gray-300 py-2 px-4">Registreringsnr</th>
-                                                <th className="border border-gray-300 py-2 px-4">Start Tid</th>
-                                                <th className="border border-gray-300 py-2 px-4">Slutt Tid</th>
-                                                <th className="border border-gray-300 py-2 px-4">Bruker</th>
-                                                <th className="border border-gray-300 py-2 px-4"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {data.map((item: any, index) => (
-                                            <tr key={index} className="text-gray-700">
-                                                <td className="border border-gray-300 py-2 px-4">{item.registrationNumber}</td>
-                                                <td className="border border-gray-300 py-2 px-4">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                <td className="border border-gray-300 py-2 px-4">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                <td className="border border-gray-300 py-2 px-4">{item.user.name} ({item.user.email})</td>
-                                                <td className="border border-gray-300 py-2 px-4">
-                                                    <button className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md" onClick={() => handleDeactivateClick(item.id)}>
-                                                        Deaktiver
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                            <div className="rounded-lg bg-gray-100 rounded-lg">
+                                <div className="p-6">
+                                    <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full border-collapse">
+                                            <thead className="bg-gray-200">
+                                                <tr>
+                                                    <th className="border border-gray-300 py-2 px-4">Registreringsnr</th>
+                                                    <th className="border border-gray-300 py-2 px-4">Start Tid</th>
+                                                    <th className="border border-gray-300 py-2 px-4">Slutt Tid</th>
+                                                    <th className="border border-gray-300 py-2 px-4">Bruker</th>
+                                                    <th className="border border-gray-300 py-2 px-4"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {data.map((item: any, index) => (
+                                                    <tr key={index} className="text-gray-700">
+                                                        <td className="border border-gray-300 py-2 px-4">{item.registrationNumber}</td>
+                                                        <td className="border border-gray-300 py-2 px-4">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                        <td className="border border-gray-300 py-2 px-4">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                        <td className="border border-gray-300 py-2 px-4">{item.user.name} ({item.user.email})</td>
+                                                        <td className="border border-gray-300 py-2 px-4">
+                                                            <button className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md" onClick={() => handleDeactivateClick(item.id)}>
+                                                                Deaktiver
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <ActivateParking
                         showModal={showActivateParking}
                         setShowModal={setShowActivateParking}

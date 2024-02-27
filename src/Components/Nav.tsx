@@ -16,7 +16,7 @@ export const Nav = () => {
 
     return (
         <nav className="bg-gray-800 py-4">
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-6">
                 <div className="flex justify-between items-center">
                     <Link to="/" className="text-white hover:text-gray-300 transition-colors duration-300">Hjem</Link>
                     {user && user.role === "ADMIN" && (
