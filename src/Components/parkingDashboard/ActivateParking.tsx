@@ -36,12 +36,18 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
 
     return (
         <>
-            <button
+        <div className="flex">
+            <div className="bg-gray-300 p-4 w-full flex justify-between border-b border-gray-700">
+                <h2 className="text-xl font-bold mb-4">Tilgjengelige parkeringer: {null}</h2>
+                <button
                 onClick={() => setShowModal(true)}
-                className="bg-gray-400 text-white px-4 py-2 rounded-md m-2">Aktiver parkering
+                className="bg-gray-400 p-3 rounded-md m-4">Aktiver parkering
             </button>
+            </div>
+            </div>
+            
             {showModal && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">
                     <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
                         <h2 className="text-2xl font-bold mb-4">Aktiver parking</h2>
                         <form onSubmit={handleSubmit}>
@@ -79,13 +85,14 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
                                 <button type="submit"
                                         className="bg-gray-400 text-white px-4 py-2 rounded-md m-2">Aktiver
                                 </button>
-
-                            </div>
-                        </form>
-                        <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2"
+                                <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2"
                                 onClick={() => setShowModal(false)}>
                             Lukk vindu
                         </button>
+
+                            </div>
+                        </form>
+                        
                     </div>
                 </div>)}
         </>

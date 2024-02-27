@@ -3,7 +3,7 @@ import ParkingIssuer from './Components/parkingDashboard/ParkingIssuer';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from './Components/Header';
 import Login from './Components/login/Login';
-import DeactivateParking from './Components/parkingDashboard/DeactivateParkering';
+import DeactivateParking from './Components/parkingDashboard/DeactivateParking';
 import AuthContextProvider from './contexts/AuthContext';
 import Nav from './Components/Nav';
 import Dashboard from './Components/dashboard/Dashboard';
@@ -18,7 +18,6 @@ function App() {
                 <Routes>
                     <Route path="/" element={<ParkingIssuer/>}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/deactivateparking/:id" element={<DeactivateParking/>}/>
                     <Route path="/dashboard" element={<Dashboard/>}/>
                     <Route path="/superadmin" element={<SuperAdminDashboard/>}/>
                 </Routes>
