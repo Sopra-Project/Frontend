@@ -7,7 +7,7 @@ import DeactivateParking from './Components/DeactivateParkering';
 import AuthContextProvider from './contexts/AuthContext';
 import Nav from './Components/Nav';
 import Dashboard from './Components/dashboard/Dashboard';
-import Activateparking from './Components/Activateparking';
+import ActivateParking from './Components/ActivateParking';
 
 function App() {
     return (
@@ -16,7 +16,7 @@ function App() {
                 <Header/>
                 <Nav/>
                 <Routes>
-                    <Route path="/activeparking" element={<Activateparking/>}/>
+                    <Route path="/activeparking" element={<ActivateParking/>}/>
                     <Route path="/" element={<ParkingIssuer/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/deactivateparking/:id" element={<DeactivateParking/>}/>
