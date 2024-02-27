@@ -17,9 +17,9 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
     const addMinutes = (date: Date, minutes: number): Date => {
         const newDate = new Date(date);
         newDate.setMinutes(newDate.getMinutes() + minutes);
-        newDate.setHours(23, 59, 59);
         return newDate;
     };
+    
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -59,6 +59,7 @@ const ActivateParking = ({showModal, setShowModal, activateParking}: ActivatePar
                                     id="registrationNumber"
                                     value={registrationNumber}
                                     onChange={(e) => setRegistrationNumber(e.target.value)}
+                                    required
                                     className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                                 />
                             </div>

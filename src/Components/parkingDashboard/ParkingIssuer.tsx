@@ -82,18 +82,28 @@ function ParkingIssuer() {
                 <div>Loading...</div>
             ) : (
                 <>
-                    <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
-                    <ActivateParking 
-                        showModal={showActivateParking} setShowModal={setShowActivateParking} activateParking={activateParking} />
-                    {selectedParkingItemId !== null && (
-                        <DeactivateParking 
+                <Calendar 
+                    map={parkingMap} 
+                    setSelectedDate={setSelectedDate} 
+                    selectedDate={selectedDate} 
+                    selectedMonth={selectedMonth} 
+                    setSelectedMonth={setSelectedMonth} 
+                />
+                <ActivateParking 
+                    showModal={showActivateParking} 
+                    setShowModal={setShowActivateParking} 
+                    activateParking={activateParking} 
+                />
+                {selectedParkingItemId !== null && (
+                    <DeactivateParking 
                         showModal={selectedParkingItemId !== null}
                         setShowModal={setShowDeactivateParking}
                         handleDeactivateParking={handleDeactivateParking}
                         handleCloseDeactivateParking={handleCloseDeactivateParking}
                         id={selectedParkingItemId} 
                     />
-                    )}
+                )}
+
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
                             <h1 className="text-2xl font-bold mb-4">{(selectedDate).toString() + '/' + (selectedMonth + 1).toString()}</h1>
