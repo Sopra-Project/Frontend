@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import ParkingService from '../../services/ParkingService';
 
 function DeactivateParking() {
     const { id } = useParams();
@@ -10,11 +10,10 @@ function DeactivateParking() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                //const response = await axios.get(`https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/parking/${id}`);
-                const response = await axios.get(`http://localhost:8080/api/parking/${id}`);
-                const responseRegistrationNumber = response.data.registrationNumber;
+                const response = await ParkingService.getParkingID(Number(id)); 
+                const responseRegistrationNumber = response.registrationNumber;
                 setparkingRegistrationNumber(responseRegistrationNumber);
-                console.log("Regstringsnummeret er",responseRegistrationNumber)
+                console.log("Registreringsnummeret er", responseRegistrationNumber);
             } catch (error) {
                 console.error("Error fetching parking spot ID:", error);
             }
@@ -25,20 +24,14 @@ function DeactivateParking() {
 
     const handleDeactivateClick = async () => {
         try {
-            if (id !== null) {
-                //await axios.put(`https://gjesteparkering-faa7b9adf6e4.herokuapp.com/api/parking/${id}/free`);
-                await axios.put(`http://localhost:8080/api/parking/${id}/free`);
-                navigate('/');
-                console.log()
-            } else {
-                console.error("Parking spot ID is null");
-            }
+            console.log('Deactivating parking spot with ID:', id);
+            await ParkingService.deactivateParking(Number(id));
+            console.log('Parking spot deactivated successfully');
+            navigate('/');
         } catch (error) {
-            console.error("Error deactivating parking:", error);
-            
+            console.error('Error deactivating parking:', error);
         }
-
-    };   
+    };  
 
     return (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">

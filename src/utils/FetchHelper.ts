@@ -15,7 +15,17 @@ export const FetchHelper = {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
+            body: JSON.stringify(data)
         });
         return response.json();
+    },
+    delete: async (url: string) => {
+        return await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
     }
 }

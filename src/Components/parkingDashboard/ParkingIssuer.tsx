@@ -5,6 +5,7 @@ import Calendar from './Calendar';
 import ParkingService from '../../services/ParkingService';
 import {ParkingSpot} from '../../types/types';
 import {useAuthContext} from "../../hooks/useAuthContext";
+import AvailableParking from './AvailableParking';
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -32,7 +33,7 @@ function ParkingIssuer() {
                 });
             }
         };
-        fetchData();
+        void fetchData();
         setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || [])
     }, [selectedDate, parkingMap, user, selectedMonth]);
 
@@ -40,7 +41,8 @@ function ParkingIssuer() {
     let navigate = useNavigate();
 
     const handleButtonClick = (id: number) => {
-        navigate(`q/${id}`);
+        //params: id
+        navigate(`/deactivateparking/${id}`);
     };
 
     return (
@@ -51,6 +53,7 @@ function ParkingIssuer() {
                 <>
                     <Calendar map={parkingMap} setSelectedDate={setSelectedDate} selectedDate={selectedDate}
                               selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
+                    <AvailableParking data={data} parkedDataLength={data.length}/>
                     <div className="flex">
                         <div className="bg-gray-300 p-4 w-full">
                             <h1 className="text-2xl font-bold mb-4">{(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
