@@ -7,8 +7,8 @@ import DeactivateParking from './Components/parkingDashboard/DeactivateParkering
 import AuthContextProvider from './contexts/AuthContext';
 import Nav from './Components/Nav';
 import Dashboard from './Components/dashboard/Dashboard';
-import ActivateParking from './Components/parkingDashboard/Activateparking';
 import {SuperAdminDashboard} from "./Components/superadminDashboard/SuperAdminDashboard";
+import Activateparking from './Components/parkingDashboard/Activateparking';
 
 function App() {
     return (
@@ -17,7 +17,7 @@ function App() {
                 <Header/>
                 <Nav/>
                 <Routes>
-                    <Route path="/activeparking" element={<ActivateParking/>}/>
+                    <Route path="/activateparking" element={<Activateparking onSubmit={null} onCancel={null} onClose={null}/>}/>
                     <Route path="/" element={<ParkingIssuer/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/deactivateparking/:id" element={<DeactivateParking/>}/>

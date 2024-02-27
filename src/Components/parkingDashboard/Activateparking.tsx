@@ -2,11 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import ParkingService from '../../services/ParkingService';
 
-const ActivateParking = () => {
+const Activateparking = ({ onSubmit, onCancel, onClose }: { onSubmit: any, onCancel: any, onClose: any }) => {
     const navigate = useNavigate();
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [duration, setDuration] = useState(30);
     const [showPopup, setShowPopup] = useState(false);
+
 
     const addMinutes = (date: Date, minutes: number): Date => {
         const newDate = new Date(date);
@@ -72,11 +73,12 @@ const ActivateParking = () => {
                     </div>
                     <div className="flex justify-between">
                         <button type="submit" className="bg-gray-400 text-white px-4 py-2 rounded-md m-2">Aktiver</button>
-                        <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2" onClick={() => navigate('/')}>
-                            Lukk vindu
-                        </button>
+                        
                     </div>
                 </form>
+                <button className="bg-gray-400 text-white px-4 py-2 rounded-md m-2" onClick={() => onCancel()}>
+                            Lukk vindu
+                        </button>
                 {showPopup && (
                     <div className="bg-gray-300 p-3 mt-3 rounded-md">
                         Parking aktivert. Redirekte til dashboard...
@@ -87,4 +89,4 @@ const ActivateParking = () => {
     );
 };
 
-export default ActivateParking;
+export default Activateparking;
