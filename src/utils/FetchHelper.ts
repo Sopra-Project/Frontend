@@ -8,8 +8,8 @@ export const FetchHelper = {
             }
         });
     },
-    post: async (url: string, data: any): Promise<JSON> => {
-        const response = await fetch(url, {
+    post: async (url: string, data: any): Promise<any> => {
+        return await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -17,7 +17,6 @@ export const FetchHelper = {
             },
             body: JSON.stringify(data)
         });
-        return response.json();
     },
     delete: async (url: string) => {
         return await fetch(url, {
