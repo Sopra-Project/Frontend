@@ -2,6 +2,7 @@ import React, {useEffect, useReducer} from 'react';
 import {jwtDecode} from "jwt-decode";
 import {AuthUser} from "../types/types"
 import {useNavigate} from 'react-router-dom';
+import {API_URL} from "../utils/SystemVars";
 
 interface Props {
     children: JSX.Element[] | JSX.Element
@@ -53,7 +54,7 @@ const AuthContextProvider = (props: Props) => {
         if (token) {
             dispatch({type: 'LOGIN', payload: token})
         }
-    }, [])
+    }, [navigate])
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>
@@ -63,7 +64,7 @@ const AuthContextProvider = (props: Props) => {
 }
 
 const validateToken = async (token: string): Promise<boolean> => {
-    const url = "http://localhost:8080/api/auth/validate/token";
+    const url = API_URL + "/api/auth/validate/token";
     try {
         const response = await fetch(url, {
             method: 'GET',

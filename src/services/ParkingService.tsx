@@ -1,7 +1,9 @@
 import {FetchHelper} from '../utils/FetchHelper';
+import isDev from "../utils/DevDetect";
+import {API_URL} from "../utils/SystemVars";
 
 
-const BASE_URL = 'http://localhost:8080'
+const BASE_URL = API_URL;
 const ALL_PARKING_API_URL = BASE_URL + '/api/parking/all';
 
 export type IParkingService = {
