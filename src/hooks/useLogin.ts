@@ -1,11 +1,13 @@
 import isDev from "../utils/DevDetect";
 import {useAuthContext} from "./useAuthContext";
+import {API_URL} from "../utils/SystemVars";
 
 export const useLogin = () => {
     const {dispatch} = useAuthContext();
+    const URL = API_URL;
 
     const login = async (email: string) => {
-        fetch('http://localhost:8080/api/auth/login', {
+        fetch(URL + '/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,7 +32,7 @@ export const useLogin = () => {
     }
 
     const sendCode = async (code: string, email: string) => {
-        fetch('http://localhost:8080/api/auth/code', {
+        fetch(URL + '/api/auth/code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

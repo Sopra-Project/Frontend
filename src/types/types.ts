@@ -1,4 +1,4 @@
-export type User = {
+export type AuthUser = {
     name: string,
     building: string,
     role: "ADMIN" | "USER" | "INSPETOR" | "SUPER_ADMIN",
@@ -18,4 +18,18 @@ export type Building = {
     id: string,
     name: string,
     totalParkingSpots: number,
+}
+
+
+export type Role = {
+    id: number;
+    authority: string;
+}
+
+export type User = {
+    id: number;
+    name: string;
+    email: string;
+    role: Role;
+    building: Building;
 }

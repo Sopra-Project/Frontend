@@ -13,7 +13,7 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        void login(email) //todo fix login to return response.
+        void login(email);
     };
 
     useEffect(() => {
@@ -53,17 +53,18 @@ const Login = () => {
                         placeholder="Skriv inn kode her"
                     />
                 </div>
-                <button
-                    onClick={() => sendCode(email, "t")}
-                    type="button"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-800 bg-gray-200 hover:bg-gray-300 mb-4">
-                    Send Kode
-                </button>
-
+                {!isDev() && (
+                    <button
+                        onClick={() => sendCode(code, email)}
+                        type="button"
+                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-800 bg-gray-200 hover:bg-gray-300 mb-4">
+                        Login
+                    </button>
+                )}
                 <button
                     type="submit"
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700">
-                    Logg Inn
+                    {isDev() ? 'Logg inn' : 'Send kode'}
                 </button>
             </form>
         </div>
@@ -71,4 +72,3 @@ const Login = () => {
 };
 
 export default Login;
-
