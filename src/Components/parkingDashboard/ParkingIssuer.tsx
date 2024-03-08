@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import Calendar from './Calendar';
 import ParkingService from '../../services/ParkingService';
-import { ParkingSpot } from '../../types/types';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import {ParkingSpot} from '../../types/types';
+import {useAuthContext} from '../../hooks/useAuthContext';
 import ActivateParking from './ActivateParking';
 import DeactivateParking from './DeactivateParking';
 
@@ -20,14 +20,14 @@ function ParkingIssuer() {
     const [selectedParkingItemId, setSelectedParkingItemId] = useState<number | null>(null);
     const [showDeactivateParking, setShowDeactivateParking] = useState(false);
 
-    const { user } = useAuthContext();
+    const {user} = useAuthContext();
 
     useEffect(() => {
         if (parkingMap.size === 0 && user) {
             void fetchData();
         }
         setData(parkingMap.get(selectedMonth + 1)?.get(selectedDate) || []);
-    }, [selectedDate, parkingMap, user, selectedMonth, showActivateParking]);
+    }, [selectedDate, parkingMap, user, selectedMonth, showActivateParking, showDeactivateParking]);
 
     const fetchData = async () => {
         await ParkingService.getAllParking().then(response => {
@@ -54,11 +54,12 @@ function ParkingIssuer() {
     const handleDeactivateParking = async () => {
         try {
             if (selectedParkingItemId) {
-                console.log('Deactivating parking spot with ID:', selectedParkingItemId);
-                await ParkingService.deactivateParking(selectedParkingItemId);
-                console.log('Parking spot deactivated successfully');
-                setSelectedParkingItemId(null);
-                fetchData();
+                await ParkingService.deactivateParking(selectedParkingItemId).then(response => {
+                    if (response.status === 200) {
+                        setShowDeactivateParking(false);
+                        setParkingMap(new Map());
+                    }
+                });
             }
         } catch (error) {
             console.error('Error deactivating parking:', error);
@@ -68,7 +69,6 @@ function ParkingIssuer() {
     const handleDeactivateClick = (id: number) => {
         setSelectedParkingItemId(id);
         setShowDeactivateParking(true);
-        console.log('KUUUUUK', id);
     };
 
     const handleCloseDeactivateParking = () => {
@@ -95,7 +95,7 @@ function ParkingIssuer() {
                         <div className="lg:col-span-1 m-4">
                             {selectedParkingItemId !== null && (
                                 <DeactivateParking
-                                    showModal={selectedParkingItemId !== null}
+                                    showModal={showDeactivateParking}
                                     setShowModal={setShowDeactivateParking}
                                     handleDeactivateParking={handleDeactivateParking}
                                     handleCloseDeactivateParking={handleCloseDeactivateParking}
@@ -108,28 +108,30 @@ function ParkingIssuer() {
                                     <div className="overflow-x-auto">
                                         <table className="w-full border-collapse">
                                             <thead className="bg-gray-200">
-                                                <tr>
-                                                    <th className="border border-gray-300 py-2 px-4">Registreringsnr</th>
-                                                    <th className="border border-gray-300 py-2 px-4">Start Tid</th>
-                                                    <th className="border border-gray-300 py-2 px-4">Slutt Tid</th>
-                                                    <th className="border border-gray-300 py-2 px-4">Bruker</th>
-                                                    <th className="border border-gray-300 py-2 px-4"></th>
-                                                </tr>
+                                            <tr>
+                                                <th className="border border-gray-300 py-2 px-4">Registreringsnr</th>
+                                                <th className="border border-gray-300 py-2 px-4">Start Tid</th>
+                                                <th className="border border-gray-300 py-2 px-4">Slutt Tid</th>
+                                                <th className="border border-gray-300 py-2 px-4">Bruker</th>
+                                                <th className="border border-gray-300 py-2 px-4"></th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                {data.map((item: any, index) => (
-                                                    <tr key={index} className="text-gray-700">
-                                                        <td className="border border-gray-300 py-2 px-4">{item.registrationNumber}</td>
-                                                        <td className="border border-gray-300 py-2 px-4">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                        <td className="border border-gray-300 py-2 px-4">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                        <td className="border border-gray-300 py-2 px-4">{item.user.name} ({item.user.email})</td>
-                                                        <td className="border border-gray-300 py-2 px-4">
-                                                            <button className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md" onClick={() => handleDeactivateClick(item.id)}>
-                                                                Deaktiver
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
+                                            {data.map((item: any, index) => (
+                                                <tr key={index} className="text-gray-700">
+                                                    <td className="border border-gray-300 py-2 px-4">{item.registrationNumber}</td>
+                                                    <td className="border border-gray-300 py-2 px-4">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                    <td className="border border-gray-300 py-2 px-4">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                    <td className="border border-gray-300 py-2 px-4">{item.user.name} ({item.user.email})</td>
+                                                    <td className="border border-gray-300 py-2 px-4">
+                                                        <button
+                                                            className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
+                                                            onClick={() => handleDeactivateClick(item.id)}>
+                                                            Deaktiver
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
                                             </tbody>
                                         </table>
                                     </div>
