@@ -38,6 +38,9 @@ const AuthContextProvider = (props: Props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (window.location.pathname === "/validate") {
+            return
+        }
         const token = localStorage.getItem('token')
         if (!token) {
             navigate('/login')
