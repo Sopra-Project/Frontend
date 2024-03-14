@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import ParkingService from '../../services/ParkingService';
 
 type ActivateParkingProps = {
     showModal: boolean;
@@ -7,14 +9,10 @@ type ActivateParkingProps = {
 }
 
 const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateParkingProps) => {
+    const navigate = useNavigate();
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [duration, setDuration] = useState(30);
-    const [startDate, setStartDate] = useState(new Date().toISOString().substr(0, 10));
-    const [startHour, setStartHour] = useState(new Date().getHours());
-    const [startMinute, setStartMinute] = useState(new Date().getMinutes());
-    const [hours, setHours] = useState<number[]>(Array.from({ length: 24 }, (_, index) => index));
-    const [minutes, setMinutes] = useState<number[]>(Array.from({ length: 60 }, (_, index) => index));
-    const [error, setError] = useState<string>("");
+
 
     const addMinutes = (date: Date, minutes: number): Date => {
         const newDate = new Date(date);
@@ -22,29 +20,13 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
         return newDate;
     };
 
-    useEffect(() => {
-        const minutesOptions = Array.from({ length: 60 }, (_, index) => index);
-        setMinutes(minutesOptions);
-    }, []);
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         try {
-            const currentDateTime = new Date();
-            const selectedDateTime = new Date(startDate);
-            selectedDateTime.setHours(startHour);
-            selectedDateTime.setMinutes(startMinute);
-
-            if (selectedDateTime < currentDateTime) {
-                setError("Start tid er ugyldig");
-                return;
-            }
-
-            setError("");
-
-            const startDateTime: string = `${startDate}T${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}:00.000Z`; // Combine date, hour, and minute
-            const endTime: string = addMinutes(new Date(startDateTime), duration).toISOString();
-            activateParking(registrationNumber, startDateTime, endTime);
+            const startTime: string = new Date().toISOString();
+            const endTime: string = addMinutes(new Date(), duration).toISOString();
+            activateParking(registrationNumber, startTime, endTime);
             setRegistrationNumber("");
             setDuration(30);
         } catch (error) {
@@ -57,7 +39,7 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
             <div className="flex">
                 <button
                     onClick={() => setShowModal(true)}
-                    className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 mt-8">
+                    className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 mx-8 my-4">
                     Aktiver parkering
                 </button>
             </div>
@@ -77,51 +59,6 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
                                     className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">Startdato</label>
-                                <input
-                                    type="date"
-                                    id="startDate"
-                                    value={startDate}
-                                    min={new Date().toISOString().substr(0, 10)}
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                    required
-                                    className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
-                                />
-                            </div>
-                            <div className="flex">
-                                <div className="mr-2">
-                                    <label htmlFor="startHour" className="block text-sm font-medium text-gray-700">Time</label>
-                                    <select
-                                        id="startHour"
-                                        value={startHour}
-                                        onChange={(e) => setStartHour(parseInt(e.target.value))}
-                                        required
-                                        className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
-                                    >
-                                        {hours.map(hour => (
-                                            <option key={hour} value={hour}>{hour.toString().padStart(2, '0')}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div>
-                                    <label htmlFor="startMinute" className="block text-sm font-medium text-gray-700">Minutt</label>
-                                    <select
-                                        id="startMinute"
-                                        value={startMinute}
-                                        onChange={(e) => setStartMinute(parseInt(e.target.value))}
-                                        required
-                                        className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
-                                    >
-                                        {minutes.map(minute => (
-                                            <option key={minute} value={minute}>{minute.toString().padStart(2, '0')}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                            {error && (
-                                <div className="text-red-500"> {error}</div>
-                            )}
                             <div>
                                 <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Varighet</label>
                                 <select
