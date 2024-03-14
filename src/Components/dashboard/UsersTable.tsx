@@ -1,34 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminService from "../../services/AdminService";
-import {User} from "../../types/types";
-
+import { User } from "../../types/types";
+import CreateUserModal from "./CreateUserModal";
 
 const UsersTable = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [showCreateUserModal, setShowCreateUserModal] = useState<boolean>(false);
 
     useEffect(() => {
         AdminService.getAllUsers().then((data) => {
             setUsers(data);
             setLoading(false);
         }).catch((error) => {
-            setError(error);
+            setError(String(error));
             setLoading(false);
         });
     }, []);
-
-    const handleEditClick = () => {
-        //
-    };
-
-    const handleDeleteClick = () => {
-        //
-    };
-
-    const handleCreateUserClick = () => {
-        //
-    };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error fetching users: {error}</p>;
@@ -50,24 +39,16 @@ const UsersTable = () => {
                         <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{user.role.authority}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                            <button onClick={handleEditClick}
-                                    className="px-4 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Edit
-                            </button>
-                            <button onClick={handleDeleteClick}
-                                    className="px-4 py-2 ml-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Delete
-                            </button>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
             <div className="flex justify-end mt-4">
-                <button onClick={handleCreateUserClick}
-                        className="px-8 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Opprett Ny
-                    Bruker
-                </button>
+                <button onClick={() => setShowCreateUserModal(true)} className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 mx-8 my-4">Opprett Ny Bruker</button>
             </div>
+            <CreateUserModal isOpen={showCreateUserModal} onClose={() => setShowCreateUserModal(false)} />
         </div>
     );
 };
