@@ -8,6 +8,7 @@ import Nav from './Components/Nav';
 import Dashboard from './Components/dashboard/Dashboard';
 import {SuperAdminDashboard} from "./Components/superadminDashboard/SuperAdminDashboard";
 import ParkingValidation from "./Components/ValidateParking";
+import Footer from './Components/Footer';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
             <AuthContextProvider>
                 <Header/>
                 <Nav/>
+                <main>
                 <Routes>
                     <Route path="/" element={<ParkingIssuer/>}/>
                     <Route path="/login" element={<Login/>}/>
@@ -23,8 +25,11 @@ function App() {
                     <Route path="/superadmin" element={<SuperAdminDashboard/>}/>
                     <Route path="/validate" element={<ParkingValidation/>}/>
                 </Routes>
+                </main>
+                <Footer/>
             </AuthContextProvider>
         </Router>
+        
     );
 }
 

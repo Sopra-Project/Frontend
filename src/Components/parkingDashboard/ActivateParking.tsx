@@ -57,7 +57,7 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
             <div className="flex">
                 <button
                     onClick={() => setShowModal(true)}
-                    className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 mx-8 my-4">
+                    className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 mt-8">
                     Aktiver parkering
                 </button>
             </div>
