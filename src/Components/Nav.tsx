@@ -18,11 +18,10 @@ export const Nav = () => {
         <nav className="bg-gray-800 py-4">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex justify-between items-center">
-                    <Link to="/" className="text-white hover:text-gray-300 transition-colors duration-300">Hjem</Link>
+                    <Link to="/" className="text-white hover:text-gray-300 transition-colors duration-300">Parkeringer</Link>
                     {user && user.role === "ADMIN" && (
                         <>
                             <Link to="/dashboard" className="text-white hover:text-gray-300 transition-colors duration-300 ml-4">Brukere</Link>
-                            <Link to="/create-user" className="text-white hover:text-gray-300 transition-colors duration-300 ml-4">Opprett ny bruker</Link>
                         </>
                     )}
                     <ul className="flex space-x-4">
