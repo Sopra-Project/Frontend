@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { User } from '../../types/types';
 import { FetchHelper } from '../../utils/FetchHelper';
@@ -11,6 +12,7 @@ const UsersTable = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [selectedRole, setSelectedRole] = useState('');
+
 
     useEffect(() => {
         fetchUsers();
@@ -33,7 +35,7 @@ const UsersTable = () => {
     };
 
     const handleCreateUserClick = () => setIsModalOpen(true);
-
+    
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setName('');
@@ -61,6 +63,7 @@ const UsersTable = () => {
         }
     };
 
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error fetching users: {error}</p>;
 
@@ -84,6 +87,7 @@ const UsersTable = () => {
                         <td className="px-6 py-4 whitespace-nowrap">
                             <button onClick={() => {/* Handle edit */}} className="text-indigo-600 hover:text-indigo-900">Edit</button>
                             <button onClick={() => {/* Handle delete */}} className="text-red-600 hover:text-red-900 ml-4">Delete</button>
+
                         </td>
                     </tr>
                 ))}

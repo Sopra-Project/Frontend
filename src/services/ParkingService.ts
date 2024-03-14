@@ -1,5 +1,4 @@
 import {FetchHelper} from '../utils/FetchHelper';
-import isDev from "../utils/DevDetect";
 import {API_URL} from "../utils/SystemVars";
 
 
