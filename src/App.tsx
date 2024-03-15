@@ -16,7 +16,7 @@ function App() {
     return (
         <Router>
             <AuthContextProvider>
-        <Navbar/>
+            <Navbar/>
                 <main>
                 <Routes>
                     <Route path="/" element={<ParkingIssuer/>}/>
@@ -29,7 +29,7 @@ function App() {
                 <Footer/>
             </AuthContextProvider>
         </Router>
-        
+
     );
 }
 
