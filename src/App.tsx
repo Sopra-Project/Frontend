@@ -1,10 +1,8 @@
 import './App.css';
 import ParkingIssuer from './Components/parkingDashboard/ParkingIssuer';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-
 import Login from './Components/login/Login';
 import AuthContextProvider from './contexts/AuthContext';
-
 import Dashboard from './Components/dashboard/Dashboard';
 import {SuperAdminDashboard} from "./Components/superadminDashboard/SuperAdminDashboard";
 import ParkingValidation from "./Components/ValidateParking";

@@ -18,11 +18,9 @@ function ParkingIssuer() {
     const day = today.getDate();
     const [selectedDate, setSelectedDate] = useState<number>(day);
     const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
-
     const [showActivateParking, setShowActivateParking] = useState(false);
     const [selectedParkingItemId, setSelectedParkingItemId] = useState<number | null>(null);
     const [showDeactivateParking, setShowDeactivateParking] = useState(false);
-
     const { user } = useAuthContext();
 
     useEffect(() => {
@@ -105,45 +103,71 @@ function ParkingIssuer() {
                                     id={selectedParkingItemId}
                                 />
                             )}
-
-                                <div className="pr-6 overflow-x-auto">
-                                    <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
-                                    <table className='Parking table-auto w-full'>
-                                        <thead className="Parking bg-gray-200">
-                                            <tr>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Registreringsnr</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Start Tid</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Slutt Tid</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Bruker</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className='Parking'>
-                                            {data.map((item: any, index) => (
-                                                <tr key={index} className="Parking text-gray-700">
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Registreringsnr">{item.registrationNumber}</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Start Tid">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Slutt Tid">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Bruker">{item.user.name} </td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4">
-                                                        <button
-                                                            className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
-                                                            onClick={() => handleDeactivateClick(item.id)}>
-                                                            <FontAwesomeIcon icon={faTrash} className="mx-2" />
-                                                        </button>
-                                                    </td>
+                            <div>
+                                <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
+                                <div className="overflow-auto rounded-lg shadow hidden lg:block">
+                                    <div>
+                                        <table className='Parking w-full'>
+                                            <thead className="Parking bg-gray-50 border-b-2 border-gray-200">
+                                                <tr>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Registreringsnr</th>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Start Tid</th>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Slutt Tid</th>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Bruker</th>
+                                                    <th className="Parking w-4 p-4 text-sm font-semibold tracking-wide text-left"></th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                    <ActivateParking
-                        showModal={showActivateParking}
-                        setShowModal={setShowActivateParking}
-                        activateParking={activateParking}
-                    />
+                                            </thead>
+                                            <tbody className='Parking divide-y divide-gray-100'>
+                                                {data.map((item: any, index) => (
+                                                    <tr key={index} className="Parking text-gray-700">
+                                                        <td className="Parking p-4 font-bold text-sm text-gray-700 whitespace-nowrap" data-label="Registreringsnr">{item.registrationNumber}</td>
+                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Start Tid">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Slutt Tid">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Bruker">{item.user.name} </td>
+                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap">
+                                                            <button
+                                                                className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
+                                                                onClick={() => handleDeactivateClick(item.id)}>
+                                                                <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </div>
+                                    <div className='flex justify-between'>
+                                    <div className='flex justify-between bg-gray-700 lg:hidden'>
+                                    
+                                            <div className='flex-wrap  flex gap-8'>
+                                            {data.map((item: any, index) => (
+                                                    <div key={index} className="Parking min-w-18 text-gray-700 bg-white p-4 rounded-lg shadow">
+                                                        <div className="Parking p-4 font-bold text-sm text-gray-700 whitespace-nowrap" data-label="Registreringsnr">Registreringsnr: {item.registrationNumber}</div>
+                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Start Tid">Start Tid {moment(item.startTime).format('YYYY-MM-DD HH:mm')}</div>
+                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Slutt Tid">Slutt Tid {moment(item.endTime).format('YYYY-MM-DD HH:mm')}</div>
+                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Bruker">Bruker {item.user.name} </div>
+                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap">
+                                                            <button
+                                                                className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
+                                                                onClick={() => handleDeactivateClick(item.id)}>
+                                                                <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                    <ActivateParking
+                                        showModal={showActivateParking}
+                                        setShowModal={setShowActivateParking}
+                                        activateParking={activateParking}
+                                    />
                             </div>
                         </div>
+                    
                     
                 </>
             )}

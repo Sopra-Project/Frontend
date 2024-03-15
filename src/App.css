@@ -11,7 +11,7 @@ main {
     margin: 0;
   }
 
-  .Parking thead {
+  /* .Parking thead {
     display: none;
   }
   .Parking,
@@ -39,6 +39,6 @@ main {
     width: 50%;
     padding-left: 15px;
     font-weight: bold;
-  }
+  } */
 }
 
