@@ -6,6 +6,9 @@ import { ParkingSpot } from '../../types/types';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import ActivateParking from './ActivateParking';
 import DeactivateParking from './DeactivateParking';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -102,10 +105,10 @@ function ParkingIssuer() {
                                     id={selectedParkingItemId}
                                 />
                             )}
-                            <div className="rounded-lg rounded-lg">
-                                <div className="p-6 overflow-x-auto">
+
+                                <div className="pr-6 overflow-x-auto">
                                     <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
-                                    <table className='Parking'>
+                                    <table className='Parking table-auto w-full'>
                                         <thead className="Parking bg-gray-200">
                                             <tr>
                                                 <th className="Parking border border-gray-300 py-2 px-4">Registreringsnr</th>
@@ -121,12 +124,12 @@ function ParkingIssuer() {
                                                     <td className="Parking border border-gray-300 py-2 px-4" data-label="Registreringsnr">{item.registrationNumber}</td>
                                                     <td className="Parking border border-gray-300 py-2 px-4" data-label="Start Tid">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
                                                     <td className="Parking border border-gray-300 py-2 px-4" data-label="Slutt Tid">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Bruker">{item.user.name} ({item.user.email})</td>
+                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Bruker">{item.user.name} </td>
                                                     <td className="Parking border border-gray-300 py-2 px-4">
                                                         <button
                                                             className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
                                                             onClick={() => handleDeactivateClick(item.id)}>
-                                                            Deaktiver
+                                                            <FontAwesomeIcon icon={faTrash} className="mx-2" />
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -141,7 +144,6 @@ function ParkingIssuer() {
                                 </div>
                             </div>
                         </div>
-                    </div>
                     
                 </>
             )}
