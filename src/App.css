@@ -11,6 +11,11 @@ main {
     margin: 0;
   }
 
+  /* .container {
+    display: flex;
+    justify-content: space-between;
+  } */
+
   /* .Parking thead {
     display: none;
   }

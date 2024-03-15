@@ -9,7 +9,6 @@ import DeactivateParking from './DeactivateParking';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
     const [parkingMap, setParkingMap] = useState<Map<number, Map<number, ParkingSpot[]>>>(new Map());
@@ -103,7 +102,7 @@ function ParkingIssuer() {
                                     id={selectedParkingItemId}
                                 />
                             )}
-                            <div>
+       
                                 <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
                                 <div className="overflow-auto rounded-lg shadow hidden lg:block">
                                     <div>
@@ -121,8 +120,8 @@ function ParkingIssuer() {
                                                 {data.map((item: any, index) => (
                                                     <tr key={index} className="Parking text-gray-700">
                                                         <td className="Parking p-4 font-bold text-sm text-gray-700 whitespace-nowrap" data-label="Registreringsnr">{item.registrationNumber}</td>
-                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Start Tid">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Slutt Tid">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
+                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Start Tid">{moment(item.startTime).format('HH:mm')}</td>
+                                                        <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Slutt Tid">{moment(item.endTime).format('HH:mm')}</td>
                                                         <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Bruker">{item.user.name} </td>
                                                         <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap">
                                                             <button
@@ -136,39 +135,36 @@ function ParkingIssuer() {
                                             </tbody>
                                         </table>
                                     </div>
-                                    </div>
-                                    <div className='flex justify-between'>
-                                    <div className='flex justify-between bg-gray-700 lg:hidden'>
-                                    
-                                            <div className='flex-wrap  flex gap-8'>
+                                </div>
+                                <div className='flex border border-black'>
+                                    <div className='flex lg:hidden'>
+                                        <div className='flex-wrap justify-between flex gap-8'>
                                             {data.map((item: any, index) => (
-                                                    <div key={index} className="Parking min-w-18 text-gray-700 bg-white p-4 rounded-lg shadow">
-                                                        <div className="Parking p-4 font-bold text-sm text-gray-700 whitespace-nowrap" data-label="Registreringsnr">Registreringsnr: {item.registrationNumber}</div>
-                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Start Tid">Start Tid {moment(item.startTime).format('YYYY-MM-DD HH:mm')}</div>
-                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Slutt Tid">Slutt Tid {moment(item.endTime).format('YYYY-MM-DD HH:mm')}</div>
-                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Bruker">Bruker {item.user.name} </div>
-                                                        <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap">
-                                                            <button
-                                                                className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
-                                                                onClick={() => handleDeactivateClick(item.id)}>
-                                                                <FontAwesomeIcon icon={faTrash} className="mx-2" />
-                                                            </button>
-                                                        </div>
+                                                <div key={index} className="Parking text-gray-700 bg-white p-4 rounded-lg shadow ">
+                                                    <div className="Parking p-4 font-bold text-sm text-gray-700 whitespace-nowrap" data-label="Registreringsnr">Registreringsnr: {item.registrationNumber}</div>
+                                                    <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Start Tid">Start Tid {moment(item.startTime).format(' HH:mm')}</div>
+                                                    <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Slutt Tid">Slutt Tid {moment(item.endTime).format(' HH:mm')}</div>
+                                                    <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Bruker">Bruker {item.user.name} </div>
+                                                    <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap">
+                                                        <button
+                                                            className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
+                                                            onClick={() => handleDeactivateClick(item.id)}>
+                                                            <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                                                        </button>
                                                     </div>
-                                                ))}
-                                            </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
-                                    <ActivateParking
-                                        showModal={showActivateParking}
-                                        setShowModal={setShowActivateParking}
-                                        activateParking={activateParking}
-                                    />
+                                <ActivateParking
+                                    showModal={showActivateParking}
+                                    setShowModal={setShowActivateParking}
+                                    activateParking={activateParking}
+                                />
                             </div>
                         </div>
-                    
-                    
+
                 </>
             )}
         </>
