@@ -140,7 +140,7 @@ function ParkingIssuer() {
                                     <div className='flex lg:hidden'>
                                         <div className='flex-wrap justify-between flex gap-8'>
                                             {data.map((item: any, index) => (
-                                                <div key={index} className="Parking text-gray-700 bg-white p-4 rounded-lg shadow ">
+                                                <div key={index} className="Parking text-gray-700 bg-white p-4 rounded-lg shadow flex-grow">
                                                     <div className="Parking p-4 font-bold text-sm text-gray-700 whitespace-nowrap" data-label="Registreringsnr">Registreringsnr: {item.registrationNumber}</div>
                                                     <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Start Tid">Start Tid {moment(item.startTime).format(' HH:mm')}</div>
                                                     <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap" data-label="Slutt Tid">Slutt Tid {moment(item.endTime).format(' HH:mm')}</div>
