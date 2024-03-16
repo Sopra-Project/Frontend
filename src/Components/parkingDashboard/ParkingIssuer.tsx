@@ -136,7 +136,7 @@ function ParkingIssuer() {
                                         </table>
                                     </div>
                                 </div>
-                                <div className='flex border border-black'>
+                                <div className='flex'>
                                     <div className='flex lg:hidden'>
                                         <div className='flex-wrap justify-between flex gap-8'>
                                             {data.map((item: any, index) => (
