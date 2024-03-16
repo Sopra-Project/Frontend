@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
                     <button onClick={logout}   className="text-white hover:text-gray-300 transition-colors duration-300 px-8 py-2 rounded-lg border-2 border-white hover:border-gray-500"
                     >Logg ut</button>
                 ) : (
-                    <Link to="/login"className="text-white hover:text-gray-600 transition-colors duration-300 px-8 py-2 rounded-lg border-2 border-white hover:border-gray-500">Login</Link>
+                    <Link to="/login"className="text-white hover:text-gray-600 transition-colors duration-300 px-8 py-2 rounded-lg border-2 border-white hover:border-gray-500">Logg inn</Link>
                 )}
             </nav>
 
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
                             </li>
                         ) : (
                             <li className="pb-4">
-                                <Link to="/login" className="text-white hover:text-gray-600 transition-colors duration-300">Login</Link>
+                                <Link to="/login" className="text-white hover:text-gray-600 transition-colors duration-300">Logg inn</Link>
                             </li>
                         )}
                     </ul>
