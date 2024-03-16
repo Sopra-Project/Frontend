@@ -141,8 +141,8 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
                                 </select>
                             </div>
                             <div className="flex justify-between">
-                                <button type="submit" className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md m-2">Aktiver</button>
-                                <button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md m-2" onClick={() => setShowModal(false)}>Lukk vindu</button>
+                                <button type="submit" className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md mr-4 my-4">Aktiver</button>
+                                <button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md ml-4 my-4" onClick={() => setShowModal(false)}>Lukk vindu</button>
                             </div>
                         </form>
                     </div>

@@ -83,7 +83,7 @@ function ParkingIssuer() {
             ) : (
                 <>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <div className="lg:col-span-1 m-4">
+                        <section className="lg:col-span-1 m-4 p-4">
                             <Calendar
                                 map={parkingMap}
                                 setSelectedDate={setSelectedDate}
@@ -91,8 +91,8 @@ function ParkingIssuer() {
                                 selectedMonth={selectedMonth}
                                 setSelectedMonth={setSelectedMonth}
                             />
-                        </div>
-                        <div className="lg:col-span-1 m-4">
+                        </section>
+                        <section className="lg:col-span-1 m-4 p-4">
                             {selectedParkingItemId !== null && (
                                 <DeactivateParking
                                     showModal={showDeactivateParking}
@@ -103,7 +103,7 @@ function ParkingIssuer() {
                                 />
                             )}
        
-                                <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
+                                <h1 className="text-2xl mb-8">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
                                 <div className="overflow-auto rounded-lg shadow hidden lg:block">
                                     <div>
                                         <table className='Parking w-full'>
@@ -162,7 +162,7 @@ function ParkingIssuer() {
                                     setShowModal={setShowActivateParking}
                                     activateParking={activateParking}
                                 />
-                            </div>
+                            </section>
                         </div>
 
                 </>

@@ -46,11 +46,11 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
     const getBookingStatus = (day: number) => {
         const bookings = map.get(selectedMonth + 1)?.get(day) || [];
         if (bookings.length <= 2 && bookings.length > 0) {
-            return 'bg-yellow-300';
+            return 'bg-yellow-200';
         } else if (bookings.length > 4) {
-            return 'bg-red-300';
+            return 'bg-red-200';
         } else {
-            return 'bg-green-300';
+            return 'bg-emerald-200';
         }
     };
 
@@ -70,8 +70,8 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
             days.push(
                 <div
                     key={day}
-                    className={`p-3 text-center cursor-pointer border ${
-                        selectedDate === day ? 'bg-blue-500 text-white' : isPastDay ? 'text-gray-500' : getBookingStatus(day)
+                    className={`p-3 text-center text-gray-600 font-medium cursor-pointer border-white rounded-md shadow ${
+                        selectedDate === day ? 'bg-blue-400 text-slate-50' : isPastDay ? 'text-gray-500' : getBookingStatus(day)
                     }`}
                     onClick={() => handleDayClick(day)}
                 >
@@ -83,15 +83,25 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
 
         return (
             <div className="month">
-                <h2 className="text-xl mb-2">{`${displayedYear} - ${date.toLocaleString('default', {month: 'long'})}`}</h2>
-                <div className="grid grid-cols-7 gap-1">
-                    <div className="p-3 bg-gray-200 text-center">Sun</div>
-                    <div className="p-3 bg-gray-200 text-center">Mon</div>
-                    <div className="p-3 bg-gray-200 text-center">Tue</div>
-                    <div className="p-3 bg-gray-200 text-center">Wed</div>
-                    <div className="p-3 bg-gray-200 text-center">Thu</div>
-                    <div className="p-3 bg-gray-200 text-center">Fri</div>
-                    <div className="p-3 bg-gray-200 text-center">Sat</div>
+                <div className="flex justify-between pb-4 mb-4 border-b-4 border-gray-100 ">
+                    <h1 className="text-2xl">{`${displayedYear} - ${date.toLocaleString('default', {month: 'long'})}`}</h1>
+                    <div className="items-end">
+                        <button onClick={handlePrevMonth} className="border-2 py-2 px-4 rounded-md mr-4 focus:outline-none">
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </button>
+                        <button onClick={handleNextMonth} className="border-2 py-2 px-4 rounded-md focus:outline-none">
+                            <FontAwesomeIcon icon={faChevronRight} />
+                        </button>
+                    </div>
+                </div>
+                <div className="calenderGrid grid grid-cols-7 gap-3">
+                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Sun</div>
+                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Mon</div>
+                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Tue</div>
+                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Wed</div>
+                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Thu</div>
+                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Fri</div>
+                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Sat</div>
                     {days}
                 </div>
             </div>
@@ -99,15 +109,7 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
     };
 
     return (
-        <div className="max-w-xl mx-auto m-2">
-            <div className="flex justify-between mb-4 items-center">
-                <button onClick={handlePrevMonth} className="focus:outline-none">
-                    <FontAwesomeIcon icon={faChevronLeft} size="lg"/>
-                </button>
-                <button onClick={handleNextMonth} className="focus:outline-none">
-                    <FontAwesomeIcon icon={faChevronRight} size="lg"/>
-                </button>
-            </div>
+        <div>
             {renderMonth()}
         </div>
     );
