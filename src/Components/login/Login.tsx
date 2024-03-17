@@ -31,7 +31,7 @@ const Login = () => {
             <h1 className="text-3xl font-bold mb-4">Logg Inn</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">E-post</label>
+                    <label htmlFor="email" className="block text-base font-medium text-gray-700">E-post</label>
                     <input
                         type="email"
                         id="email"
@@ -43,7 +43,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="code" className="block text-sm font-medium text-gray-700">Kode</label>
+                    <label htmlFor="code" className="block text-base font-medium text-gray-700">Kode</label>
                     <input
                         type="text"
                         id="code"
@@ -58,15 +58,15 @@ const Login = () => {
                         onClick={() => sendCode(code, email)}
                         type="button"
                         style={{ marginBottom: '16px', marginTop: '32px' }}
-                        className="my-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300"
+                        className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md"
                     >
                         Login
                     </button>
                 )}
                 <button
-                    style={{ marginBottom: '16px', marginTop: '32px' }}
                     type="submit"
-                    className="my-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300"
+                    style={{ marginBottom: '16px', marginTop: '32px' }}
+                    className="btn text-white font-semibold py-3 px-6 my-8 rounded-lg shadow-md"
                 >
                     {isDev() ? 'Logg inn' : 'Send kode'}
                 </button>

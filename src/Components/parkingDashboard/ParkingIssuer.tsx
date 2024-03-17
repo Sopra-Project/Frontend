@@ -138,7 +138,6 @@ function ParkingIssuer() {
                                                 </tr>
                                             ))}
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
@@ -147,7 +146,7 @@ function ParkingIssuer() {
                                     <div className='flex-wrap justify-between flex gap-8'>
                                         {data.map((item: any, index) => (
                                             <div key={index}
-                                                 className="Parking text-gray-700 bg-gray-50 p-4 rounded-lg shadow flex-grow">
+                                                 className="ParkingCard text-gray-700 bg-gray-50 p-4 rounded-lg shadow flex-grow">
                                                 <div
                                                     className="Parking pt-4 pl-4 font-bold text-sm text-gray-700 whitespace-nowrap"
                                                     data-label="Registreringsnr">Registreringsnr: {item.registrationNumber}</div>

@@ -20,19 +20,20 @@ const ParkingValidation = () => {
 
     return (
         <div className="container mx-auto p-6 bg-white max-w-md mx-auto">
-            <h1 className="text-3xl font-bold mb-4">Parking Validation</h1>
+            <h1 className="text-3xl font-bold mb-4">Parkering validering</h1>
             <div className="flex flex-col">
-                <label className="mb-4">Enter Registration Number:</label>
+                <label className="block text-base font-medium text-gray-700">Registreringsnummer</label>
                 <input
                     type="text"
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                    placeholder="Enter registration number"
+                    placeholder="Skriv inn registreringsnummer her"
                     value={registrationNumber}
                     onChange={(e) => setRegistrationNumber(e.target.value)}
                 />
             </div>
             <button
-                className="my-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300"
+                style={{ marginBottom: '16px', marginTop: '32px' }}
+                className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md"
                 onClick={handleValidation}
             >
                 Validate Parking
