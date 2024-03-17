@@ -47,6 +47,7 @@ main {
 
 
 
+
 @media (max-width: 1021px) {
   main {
     margin: 0;
@@ -61,5 +62,19 @@ main {
     gap: 5px;
   }
 
+}
+
+@media (max-width: 768px) {
+  .calenderGrid {
+    gap: 3px;
+  }
+
+  .lg\:col-span-1 {
+    padding: 0;
+  }
+
+  .rg\:col-span-1 {
+    padding: 0;
+  }
 }
 
