@@ -146,21 +146,22 @@ function ParkingIssuer() {
                                     <div className='flex-wrap justify-between flex gap-8'>
                                         {data.map((item: any, index) => (
                                             <div key={index}
-                                                 className="ParkingCard text-gray-700 bg-gray-50 p-4 rounded-lg shadow flex-grow">
+                                                 className=" text-gray-700 bg-gray-50 rounded-lg shadow flex-grow">
                                                 <div
-                                                    className="Parking pt-4 pl-4 font-bold text-sm text-gray-700 whitespace-nowrap"
-                                                    data-label="Registreringsnr">Registreringsnr: {item.registrationNumber}</div>
+                                                    className=" ParkingCard rounded-t-lg p-4 font-bold text-m text-gray-700 flex justify-between"
+                                                    ><p className='pr-4'>Registreringsnr: </p> <p>{item.registrationNumber}</p></div>
                                                 <div
-                                                    className="Parking pt-4 pl-4 text-sm text-gray-700 whitespace-nowrap"
-                                                    data-label="Start Tid">Start
-                                                    Tid: {moment(item.startTime).format(' HH:mm')}</div>
+                                                    className="p-4  text-mtext-gray-700 flex justify-between"
+                                                    ><p>Start
+                                                    Tid: </p><p> {moment(item.startTime).format(' HH:mm')}</p></div>
                                                 <div
-                                                    className="Parking pt-4 pl-4 text-sm text-gray-700 whitespace-nowrap"
-                                                    data-label="Slutt Tid">Slutt Tid: {moment(item.endTime).format(' HH:mm')}</div>
-                                                    <div className="Parking py-4 pl-4 text-sm text-gray-700 whitespace-nowrap" data-label="Bruker">Bruker: {item.user.name} </div>
-                                                    <div className="Parking p-4 text-sm text-gray-700 whitespace-nowrap">
+                                                    className="p-4  text-mtext-gray-700 flex justify-between"
+                                                    ><p>Slutt
+                                                    Tid: </p><p> {moment(item.endTime).format(' HH:mm')}</p></div>
+                                                    <div className="p-4  text-m text-gray-700 flex justify-between" ><p>Bruker: </p><p>{item.user.name} </p></div>
+                                                    <div className="p-4 text-m text-gray-700 flex justify-end">
                                                         <button
-                                                            className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
+                                                            className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md "
                                                             onClick={() => handleDeactivateClick(item.id)}>
                                                             <FontAwesomeIcon icon={faTrash} className="mx-2" />
                                                         </button>
@@ -174,6 +175,7 @@ function ParkingIssuer() {
                                     showModal={showActivateParking}
                                     setShowModal={setShowActivateParking}
                                     activateParking={activateParking}
+                                    selectedDate={selectedDate}
                                 />
                             </section>
                         </div>

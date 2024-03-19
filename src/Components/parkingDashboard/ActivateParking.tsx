@@ -4,12 +4,12 @@ type ActivateParkingProps = {
     showModal: boolean;
     setShowModal: (showModal: boolean) => void;
     activateParking: (registrationNumber: string, startTime: string, endTime: string) => void;
+    selectedDate: number; // Add selectedDate prop
 }
 
-const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateParkingProps) => {
+const ActivateParking = ({ showModal, setShowModal, activateParking, selectedDate }: ActivateParkingProps) => {
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [duration, setDuration] = useState(30);
-    const [startDate, setStartDate] = useState(new Date().toISOString().substr(0, 10));
     const [startHour, setStartHour] = useState(new Date().getHours());
     const [startMinute, setStartMinute] = useState(new Date().getMinutes());
     const [hours, setHours] = useState<number[]>(Array.from({ length: 24 }, (_, index) => index));
@@ -31,9 +31,7 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
         event.preventDefault();
         try {
             const currentDateTime = new Date();
-            const selectedDateTime = new Date(startDate);
-            selectedDateTime.setHours(startHour);
-            selectedDateTime.setMinutes(startMinute);
+            const selectedDateTime = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), selectedDate, startHour, startMinute);
 
             if (selectedDateTime < currentDateTime) {
                 setError("Start tid er ugyldig");
@@ -42,8 +40,8 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
 
             setError("");
 
-            const startDateTime: string = `${startDate}T${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}:00.000Z`; // Combine date, hour, and minute
-            const endTime: string = addMinutes(new Date(startDateTime), duration).toISOString();
+            const startDateTime: string = selectedDateTime.toISOString();
+            const endTime: string = addMinutes(selectedDateTime, duration).toISOString();
             activateParking(registrationNumber, startDateTime, endTime);
             setRegistrationNumber("");
             setDuration(30);
@@ -54,7 +52,7 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
 
     return (
         <>
-            <div className="flex">
+            <div className="flex justify-end">
                 <button
                     onClick={() => setShowModal(true)}
                     className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 my-8">
@@ -73,18 +71,6 @@ const ActivateParking = ({ showModal, setShowModal, activateParking }: ActivateP
                                     id="registrationNumber"
                                     value={registrationNumber}
                                     onChange={(e) => setRegistrationNumber(e.target.value)}
-                                    required
-                                    className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">Startdato</label>
-                                <input
-                                    type="date"
-                                    id="startDate"
-                                    value={startDate}
-                                    min={new Date().toISOString().substr(0, 10)}
-                                    onChange={(e) => setStartDate(e.target.value)}
                                     required
                                     className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                                 />
