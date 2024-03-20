@@ -45,10 +45,10 @@ const Navbar: React.FC = () => {
                     <Link to="/dashboard" className="text-white hover:text-gray-600 font-medium transition-colors duration-300 px-8">Brukere</Link>
                 )}
                 {user ? (
-                    <button onClick={logout} className="btn-bg-marine-blue-dark font-medium border-gray-700 transition-colors duration-300 px-4 py-2 rounded-lg border-2 border-white hover:border-gray-500"
+                    <button onClick={logout} className="btn-bg-marine-blue-dark font-semibold border-gray-700 transition-colors duration-300 px-4 py-2 rounded-lg border-2 border-white hover:border-gray-500"
                     >Logg ut</button>
                 ) : (
-                    <Link to="/login" className="btn-bg-marine-blue-dark font-medium border-gray-700 transition-colors duration-300 px-4 py-2 rounded-lg border-2 border-white hover:border-gray-500">Logg inn</Link>
+                    <Link to="/login" className="btn-bg-marine-blue-dark font-semibold border-gray-700 transition-colors duration-300 px-4 py-2 rounded-lg border-2 border-white hover:border-gray-500">Logg inn</Link>
                 )}
             </nav>
 

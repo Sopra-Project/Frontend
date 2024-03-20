@@ -4,7 +4,7 @@ type ActivateParkingProps = {
     showModal: boolean;
     setShowModal: (showModal: boolean) => void;
     activateParking: (registrationNumber: string, startTime: string, endTime: string) => void;
-    selectedDate: number; // Add selectedDate prop
+    selectedDate: number; 
 }
 
 const ActivateParking = ({ showModal, setShowModal, activateParking, selectedDate }: ActivateParkingProps) => {
@@ -31,7 +31,7 @@ const ActivateParking = ({ showModal, setShowModal, activateParking, selectedDat
         event.preventDefault();
         try {
             const currentDateTime = new Date();
-            const selectedDateTime = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), selectedDate, startHour, startMinute);
+            const selectedDateTime = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), selectedDate, startHour + 1, startMinute);
 
             if (selectedDateTime < currentDateTime) {
                 setError("Start tid er ugyldig");

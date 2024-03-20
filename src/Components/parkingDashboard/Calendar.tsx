@@ -71,7 +71,7 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
                 <div
                     key={day}
                     className={`p-3 text-center text-gray-600 font-medium cursor-pointer border-white rounded-md shadow ${
-                        selectedDate === day ? 'bg-blue-400 text-slate-50' : isPastDay ? 'text-gray-400' : getBookingStatus(day)
+                        selectedDate === day ? 'bg-blue-400 text-slate-50' : isPastDay ? 'text-gray-300' : getBookingStatus(day)
                     }`}
                     onClick={() => handleDayClick(day)}
                 >

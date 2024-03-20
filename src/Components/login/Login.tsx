@@ -66,7 +66,7 @@ const Login = () => {
                 <button
                     type="submit"
                     style={{ marginBottom: '16px', marginTop: '32px' }}
-                    className="btn text-white font-semibold py-3 px-6 my-8 rounded-lg shadow-md"
+                    className="btn text-white font-semibold py-3 px-6 my-8 mr-4 rounded-lg shadow-md"
                 >
                     {isDev() ? 'Logg inn' : 'Send kode'}
                 </button>
