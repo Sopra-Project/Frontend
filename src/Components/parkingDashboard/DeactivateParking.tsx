@@ -43,16 +43,16 @@ function DeactivateParking({showModal, handleDeactivateParking, handleCloseDeact
             {showModal && (
                 <div
                     className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">
-                    <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+                    <div className="bg-white p-10 rounded-lg shadow-lg flex flex-col items-center">
                         <h2 className="text-2xl font-bold mb-4">Deaktiver parking</h2>
                         <p className="mt-2 mb-2 text-center">Er du sikker på at du vil deaktivere parkering?</p>
                         <p className="mt-2 mb-6">Registreringsnr: <b> {parkingRegistrationNumber} </b></p>
                         <div className="flex justify-between">
-                            <button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md m-2"
+                            <button className="btn text-white font-semibold py-3 px-6 ml-4 mt-4 rounded-lg shadow-md"
                                     onClick={handleDeactivateClick}>
                                 Deaktiver
                             </button>
-                            <button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md m-2"
+                            <button className="btn text-white font-semibold py-3 px-6 ml-4 mt-4 rounded-lg shadow-md"
                                     onClick={handleCloseClick}>
                                 Lukk vindu
                             </button>

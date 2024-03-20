@@ -1,43 +1,85 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: rgb(231, 231, 231);
+}
+
+.bg-marine-blue-dark {
+  background-color: #244051;
+}
+
+footer {
+  background-color: #7FA2AE;
+}
+
+footer h2 {
+  color: white;
+}
+
+.btn {
+  background-color: #696766;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: rgba(123, 119, 116, 0.82);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0.3, 0.2);
+}
+
+h1 {
+  font-weight: 600;
+}
 main {
   margin-right: 10%;
   margin-left: 10%;
   background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }
+
+.Parking thead {
+  background-color: #F3F2EE;
+}
+
+.ParkingCard {
+  background-color: #F3F2EE;
+
+}
+
+
+
 
 @media (max-width: 1021px) {
   main {
     margin: 0;
   }
 
-  .Parking thead {
-    display: none;
-  }
-  .Parking,
-  .Parking tbody,
-  .Parking tr,
-  .Parking td {
-    display: block;
-    width: 100%;
-  }
-  .Parking tr {
-    margin-bottom: 20px;
-    background-color: white;
+  section{
+    padding: 0;
+    margin: 0;
   }
 
-  .Parking td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
+  .calenderGrid {
+    gap: 5px;
   }
-  .Parking td::before {
-    content: attr(data-label);
-    position: absolute;
-    text-align: left;
-    left: 0;
-    width: 50%;
-    padding-left: 15px;
-    font-weight: bold;
+
+}
+
+@media (max-width: 768px) {
+  .calenderGrid {
+    gap: 3px;
+  }
+
+  .lg\:col-span-1 {
+    padding: 0;
+  }
+
+  .rg\:col-span-1 {
+    padding: 0;
   }
 }
 

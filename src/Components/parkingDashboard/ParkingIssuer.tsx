@@ -6,6 +6,8 @@ import { ParkingSpot } from '../../types/types';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import ActivateParking from './ActivateParking';
 import DeactivateParking from './DeactivateParking';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function ParkingIssuer() {
     const [data, setData] = useState<ParkingSpot[]>([]);
@@ -15,11 +17,9 @@ function ParkingIssuer() {
     const day = today.getDate();
     const [selectedDate, setSelectedDate] = useState<number>(day);
     const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
-
     const [showActivateParking, setShowActivateParking] = useState(false);
     const [selectedParkingItemId, setSelectedParkingItemId] = useState<number | null>(null);
     const [showDeactivateParking, setShowDeactivateParking] = useState(false);
-
     const { user } = useAuthContext();
 
     useEffect(() => {
@@ -83,7 +83,7 @@ function ParkingIssuer() {
             ) : (
                 <>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <div className="lg:col-span-1 m-4">
+                        <section className="lg:col-span-1 m-4 p-4">
                             <Calendar
                                 map={parkingMap}
                                 setSelectedDate={setSelectedDate}
@@ -91,8 +91,8 @@ function ParkingIssuer() {
                                 selectedMonth={selectedMonth}
                                 setSelectedMonth={setSelectedMonth}
                             />
-                        </div>
-                        <div className="lg:col-span-1 m-4">
+                        </section>
+                        <section className="lg:col-span-1 m-4 p-4">
                             {selectedParkingItemId !== null && (
                                 <DeactivateParking
                                     showModal={showDeactivateParking}
@@ -102,47 +102,84 @@ function ParkingIssuer() {
                                     id={selectedParkingItemId}
                                 />
                             )}
-                            <div className="rounded-lg rounded-lg">
-                                <div className="p-6 overflow-x-auto">
-                                    <h1 className="text-2xl font-bold mb-4">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
-                                    <table className='Parking'>
-                                        <thead className="Parking bg-gray-200">
-                                            <tr>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Registreringsnr</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Start Tid</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Slutt Tid</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4">Bruker</th>
-                                                <th className="Parking border border-gray-300 py-2 px-4"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className='Parking'>
+       
+                                <h1 className="text-2xl mb-8">Dato: {(selectedDate).toString() + "/" + (selectedMonth + 1).toString()}</h1>
+                                <div className="overflow-auto rounded-lg shadow hidden lg:block">
+                                    <div>
+                                        <table className='Parking w-full'>
+                                            <thead className="Parking bg-gray-50 border-b-2 border-gray-200">
+                                                <tr>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Registreringsnr</th>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Start Tid</th>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Slutt Tid</th>
+                                                    <th className="Parking p-4 text-sm font-semibold tracking-wide text-left">Bruker</th>
+                                                    <th className="Parking w-4 p-4 text-sm font-semibold tracking-wide text-left"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className='Parking divide-y divide-gray-100'>
                                             {data.map((item: any, index) => (
-                                                <tr key={index} className="Parking text-gray-700">
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Registreringsnr">{item.registrationNumber}</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Start Tid">{moment(item.startTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Slutt Tid">{moment(item.endTime).format('YYYY-MM-DD HH:mm')}</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4" data-label="Bruker">{item.user.name} ({item.user.email})</td>
-                                                    <td className="Parking border border-gray-300 py-2 px-4">
+                                                <tr key={index}
+                                                    className={`Parking text-gray-700 ${index % 2 === 1 ? 'bg-gray-50' : ''}`}>
+                                                    <td className="Parking p-4 font-bold text-sm text-gray-700 whitespace-nowrap"
+                                                        data-label="Registreringsnr">{item.registrationNumber}</td>
+                                                    <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap"
+                                                        data-label="Start Tid">{moment(item.startTime).format('HH:mm')}</td>
+                                                    <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap"
+                                                        data-label="Slutt Tid">{moment(item.endTime).format('HH:mm')}</td>
+                                                    <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap"
+                                                        data-label="Bruker">{item.user.name}</td>
+                                                    <td className="Parking p-4 text-sm text-gray-700 whitespace-nowrap">
                                                         <button
                                                             className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md"
                                                             onClick={() => handleDeactivateClick(item.id)}>
-                                                            Deaktiver
+                                                            <FontAwesomeIcon icon={faTrash} className="mx-2"/>
                                                         </button>
                                                     </td>
                                                 </tr>
                                             ))}
-                                        </tbody>
-                                    </table>
-                                    <ActivateParking
-                        showModal={showActivateParking}
-                        setShowModal={setShowActivateParking}
-                        activateParking={activateParking}
-                    />
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            <div className='flex'>
+                                <div className='flex lg:hidden'>
+                                    <div className='flex-wrap justify-between flex gap-8'>
+                                        {data.map((item: any, index) => (
+                                            <div key={index}
+                                                 className=" text-gray-700 bg-gray-50 rounded-lg shadow flex-grow">
+                                                <div
+                                                    className=" ParkingCard rounded-t-lg p-4 font-bold text-m text-gray-700 flex justify-between"
+                                                    ><p className='pr-4'>Registreringsnr: </p> <p>{item.registrationNumber}</p></div>
+                                                <div
+                                                    className="p-4  text-mtext-gray-700 flex justify-between"
+                                                    ><p>Start
+                                                    Tid: </p><p> {moment(item.startTime).format(' HH:mm')}</p></div>
+                                                <div
+                                                    className="p-4  text-mtext-gray-700 flex justify-between"
+                                                    ><p>Slutt
+                                                    Tid: </p><p> {moment(item.endTime).format(' HH:mm')}</p></div>
+                                                    <div className="p-4  text-m text-gray-700 flex justify-between" ><p>Bruker: </p><p>{item.user.name} </p></div>
+                                                    <div className="p-4 text-m text-gray-700 flex justify-end">
+                                                        <button
+                                                            className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md "
+                                                            onClick={() => handleDeactivateClick(item.id)}>
+                                                            <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <ActivateParking
+                                    showModal={showActivateParking}
+                                    setShowModal={setShowActivateParking}
+                                    activateParking={activateParking}
+                                    selectedDate={selectedDate}
+                                />
+                            </section>
                         </div>
-                    </div>
-                    
+
                 </>
             )}
         </>

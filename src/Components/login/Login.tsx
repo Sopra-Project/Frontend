@@ -27,11 +27,11 @@ const Login = () => {
     }, [navigate, user]);
 
     return (
-        <div className="max-w-md mx-auto my-10 bg-white p-8 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Logg Inn</h2>
+        <div className="container mx-auto p-6 bg-white max-w-md mx-auto ">
+            <h1 className="text-3xl font-bold mb-4">Logg Inn</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">E-post</label>
+                    <label htmlFor="email" className="block text-base font-medium text-gray-700">E-post</label>
                     <input
                         type="email"
                         id="email"
@@ -43,7 +43,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="code" className="block text-sm font-medium text-gray-700">Kode</label>
+                    <label htmlFor="code" className="block text-base font-medium text-gray-700">Kode</label>
                     <input
                         type="text"
                         id="code"
@@ -57,17 +57,22 @@ const Login = () => {
                     <button
                         onClick={() => sendCode(code, email)}
                         type="button"
-                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-800 bg-gray-200 hover:bg-gray-300 mb-4">
-                        Login
+                        style={{ marginBottom: '16px', marginTop: '32px' }}
+                        className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md"
+                    >
+                        Logg inn
                     </button>
                 )}
                 <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700">
+                    style={{ marginBottom: '16px', marginTop: '32px' }}
+                    className="btn text-white font-semibold py-3 px-6 my-8 rounded-lg shadow-md"
+                >
                     {isDev() ? 'Logg inn' : 'Send kode'}
                 </button>
             </form>
         </div>
+
     );
 };
 
