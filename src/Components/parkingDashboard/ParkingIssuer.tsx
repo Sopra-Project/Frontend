@@ -142,7 +142,7 @@ function ParkingIssuer() {
                                 </div>
                             <div className='flex '>
                                 <div className='flex sm:hidden'>
-                                    <div className='card flex-wrap justify-between flex gap-8'>
+                                    <div className='flex-wrap justify-between flex gap-8'>
                                         {data.map((item: any, index) => (
                                             <div key={index} className=" text-gray-700 text-lg bg-gray-50 rounded-lg shadow flex-grow">
                                                 <div
