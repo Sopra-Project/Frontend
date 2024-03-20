@@ -13,6 +13,16 @@ body {
   background-color: #244051;
 }
 
+.btn-bg-marine-blue-dark {
+  color: #244051;
+  background-color: white;
+}
+
+.btn-bg-marine-blue-dark:hover {
+  color: white;
+  background-color: #244051;
+}
+
 footer {
   background-color: #7FA2AE;
 }
