@@ -60,7 +60,7 @@ const Login = () => {
                         style={{ marginBottom: '16px', marginTop: '32px' }}
                         className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md"
                     >
-                        Login
+                        Logg inn
                     </button>
                 )}
                 <button
