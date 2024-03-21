@@ -71,7 +71,7 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
                 <div
                     key={day}
                     className={`p-3 text-center text-gray-600 font-medium cursor-pointer border-white rounded-md shadow ${
-                        selectedDate === day ? 'bg-blue-400 text-slate-50' : isPastDay ? 'text-gray-400' : getBookingStatus(day)
+                        selectedDate === day ? 'bg-blue-400 text-slate-50' : isPastDay ? 'text-gray-300' : getBookingStatus(day)
                     }`}
                     onClick={() => handleDayClick(day)}
                 >
@@ -95,13 +95,13 @@ const Calendar = ({map, setSelectedDate, selectedDate, setSelectedMonth, selecte
                     </div>
                 </div>
                 <div className="calenderGrid grid grid-cols-7 gap-3">
-                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Sun</div>
-                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Mon</div>
-                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Tue</div>
-                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Wed</div>
-                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Thu</div>
-                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Fri</div>
-                    <div className="p-3 font-bold text-lg text-gray-600 text-center">Sat</div>
+                    <div className="p-3 font-bold text-normal text-gray-600 text-center sm:text-lg">Søn</div>
+                    <div className="p-3 font-bold text-normal text-gray-600 text-center sm:text-lg">Man</div>
+                    <div className="p-3 font-bold text-normal text-gray-600 text-center sm:text-lg">Tirs</div>
+                    <div className="p-3 font-bold text-normal text-gray-600 text-center sm:text-lg">Ons</div>
+                    <div className="p-3 font-bold text-normal text-gray-600 text-center sm:text-lg">Thu</div>
+                    <div className="p-3 font-bold text-normal text-gray-600 text-center sm:text-lg">Fre</div>
+                    <div className="p-3 font-bold text-normal text-gray-600 text-center sm:text-lg">Lør</div>
                     {days}
                 </div>
             </div>

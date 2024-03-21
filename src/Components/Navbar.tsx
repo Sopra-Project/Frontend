@@ -26,10 +26,10 @@ const Navbar: React.FC = () => {
         navigate("/login") ;
     };
 
-    // **Debugging Step (Optional): Log state changes**
+
     useEffect(() => {
         console.log(`isDropdownOpen: ${open}`);
-    }, [open]); // Run on every state change (optional)
+    }, [open]); 
 
     return (
         <div className="bg-marine-blue-dark py-6 px-10 flex justify-between items-center relative">
@@ -39,21 +39,21 @@ const Navbar: React.FC = () => {
             </header>
             <nav className="hidden md:flex items-center space-x-4">
                 {user && user.role === 'ADMIN' && (
-                    <Link to="/" className="text-white hover:text-gray-600 transition-colors duration-300 ">Parkeringer</Link>
+                    <Link to="/" className="text-white hover:text-gray-600 font-medium transition-colors duration-300 ">Parkeringer</Link>
                 )}
                 {user && user.role === 'ADMIN' && (
-                    <Link to="/dashboard" className="text-white hover:text-gray-600 transition-colors duration-300 px-8">Brukere</Link>
+                    <Link to="/dashboard" className="text-white hover:text-gray-600 font-medium transition-colors duration-300 px-8">Brukere</Link>
                 )}
                 {user ? (
-                    <button onClick={logout}   className="btn text-white font-semibold border-gray-700 transition-colors duration-300 px-8 py-2 rounded-lg border-2 border-white hover:border-gray-500"
+                    <button onClick={logout} className="btn-bg-marine-blue-dark font-semibold border-gray-700 transition-colors duration-300 px-4 py-2 rounded-lg border-2 border-white hover:border-gray-500"
                     >Logg ut</button>
                 ) : (
-                    <Link to="/login"className="btn text-white font-semibold border-gray-700 rounded-lg shadow-md hover:text-gray-600 transition-colors duration-300 px-8 py-2 rounded-lg border-2 border-zinc-400 hover:border-gray-500">Logg inn</Link>
+                    <Link to="/login" className="btn-bg-marine-blue-dark font-semibold border-gray-700 transition-colors duration-300 px-4 py-2 rounded-lg border-2 border-white hover:border-gray-500">Logg inn</Link>
                 )}
             </nav>
 
             <div className="md:hidden">
-                <button onClick={toggleDropdown} className="text-white hover:text-gray-600 transition-colors duration-200 focus:outline-none">  {/* Added focus:outline-none for better accessibility */}
+                <button onClick={toggleDropdown} className="text-white hover:text-gray-600 transition-colors duration-200 focus:outline-none"> 
                     {open ? (
                         <FontAwesomeIcon icon={faTimes} aria-label="Close Menu" size="2x"/>
                         ) : (
@@ -63,8 +63,8 @@ const Navbar: React.FC = () => {
             </div>
 
             {open && (
-                <nav className="md:hidden absolute top-full left-0 w-full bg-marine-blue-dark px-8 py-6">  {/* Added background color for better visibility */}
-                    <ul className="flex flex-col space-y-2 text-right">  {/* Added text-right for right-aligned text */}
+                <nav className="md:hidden absolute top-full left-0 w-full bg-marine-blue-dark px-8 py-6"> 
+                    <ul className="flex flex-col space-y-2 text-right">  
                         {user && user.role === 'ADMIN' && (
                         <li className="pb-4">
                             <Link to="/" className="text-white hover:text-gray-600 transition-colors duration-300">Parkeringer</Link>
