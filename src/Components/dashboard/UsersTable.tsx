@@ -14,6 +14,7 @@ const UsersTable = () => {
 
 
     useEffect(() => {
+        if (users.length > 0) return;
         AdminService.getAllUsers().then((users) => {
             setUsers(users);
             setLoading(false);
