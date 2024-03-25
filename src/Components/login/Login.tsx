@@ -55,20 +55,19 @@ const Login = () => {
                 </div>
                 {!isDev() && (
                     <button
-                        onClick={() => sendCode(code, email)}
-                        type="button"
-                        style={{ marginBottom: '16px', marginTop: '32px' }}
-                        className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md"
-                    >
-                        Logg inn
-                    </button>
-                )}
-                <button
                     type="submit"
                     style={{ marginBottom: '16px', marginTop: '32px' }}
-                    className="btn text-white font-semibold py-3 px-6 my-8 mr-4 rounded-lg shadow-md"
-                >
+                    className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md">
                     {isDev() ? 'Logg inn' : 'Send kode'}
+                    </button>
+                    
+                )}
+                <button
+                    onClick={() => sendCode(code, email)}
+                    type="button"
+                    style={{ marginBottom: '16px', marginTop: '32px' }}
+                    className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md">
+                    Logg inn
                 </button>
             </form>
         </div>
