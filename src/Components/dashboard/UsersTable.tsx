@@ -63,7 +63,7 @@ const UsersTable = () => {
                         <div><strong>Email:</strong> {user.email}</div>
                         <div><strong>Role:</strong> {user.role.authority}</div>
                         <div className="flex justify-end space-x-2 mt-4">
-                            <button className="text-blue-500 hover:text-blue-700">
+                            <button className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 <FontAwesomeIcon icon={faEdit} />
                             </button>
                             <button className="text-red-500 hover:text-red-700">
@@ -81,7 +81,8 @@ const UsersTable = () => {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Navn</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rolle</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Handlinger</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right">Handlinger</th>
+
                         </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
@@ -91,7 +92,7 @@ const UsersTable = () => {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.role.authority}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <button className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <FontAwesomeIcon icon={faEdit}/>
                                     </button>
                                     <button className="text-red-600 hover:text-red-900">

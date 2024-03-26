@@ -87,12 +87,3 @@ main {
   }
 
 }
-@media (max-width: 768px) {
-  .users-table th:last-of-type {
-    margin-right: 10px;
-  }
-}
-
-.users-table th:last-of-type {
-  text-align: right;
-}
