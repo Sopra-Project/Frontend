@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {User} from '../../types/types';
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'; // Importer "edit" ikonet
+import { User } from '../../types/types';
 import AdminService from "../../services/AdminService";
-
 
 const UsersTable = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -12,16 +13,16 @@ const UsersTable = () => {
     const [email, setEmail] = useState('');
     const [selectedRole, setSelectedRole] = useState('');
 
-
     useEffect(() => {
-        AdminService.getAllUsers().then((users) => {
-            setUsers(users);
-            setLoading(false);
-
-        }).catch((error) => {
-            setError(error.message);
-            setLoading(false);
-        });
+        AdminService.getAllUsers()
+            .then((users) => {
+                setUsers(users);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setError(error.message);
+                setLoading(false);
+            });
     }, [users]);
 
     const handleCreateUserClick = () => setIsModalOpen(true);
@@ -37,7 +38,7 @@ const UsersTable = () => {
         event.preventDefault();
 
         const roleId = selectedRole === 'admin' ? 1 : 2;
-        const userData = {name, email, roleId};
+        const userData = { name, email, roleId };
 
         try {
             const response = await AdminService.createUser(userData);
@@ -52,45 +53,64 @@ const UsersTable = () => {
         }
     };
 
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error fetching users: {error}</p>;
 
     return (
-        <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+        <div className="overflow-x-auto pb-5 pt-5 shadow-xl bg-gray-100">
+            {/* Kortoppsett for mindre skjermer */}
+            <div className="md:hidden">
                 {users.map((user) => (
-                    <tr key={user.id}>
-                        <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{user.role.authority}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                            <button onClick={() => {/* Handle edit */
-                            }} className="text-indigo-600 hover:text-indigo-900">Edit
+                    <div key={user.id} className="bg-white shadow overflow-hidden rounded-lg mb-4 p-4">
+                        <div><strong>Navn:</strong> {user.name}</div>
+                        <div><strong>Email:</strong> {user.email}</div>
+                        <div><strong>Rolle:</strong> {user.role.authority}</div>
+                        <div className="flex justify-end space-x-2 mt-2">
+                            <button onClick={() => { /* Implementer redigeringsfunksjonalitet */ }} className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+                                <FontAwesomeIcon icon={faEdit} />
                             </button>
-                            <button onClick={() => {/* Handle delete */
-                            }} className="text-red-600 hover:text-red-900 ml-4">Delete
+                            <button onClick={() => { /* Implementer slettefunksjonalitet */ }} className="text-white bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded">
+                                <FontAwesomeIcon icon={faTrash} />
                             </button>
-
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 ))}
-                </tbody>
-            </table>
+            </div>
+
+            <div className="w-full overflow-hidden sm:rounded-md shadow-xl">
+                <table className="w-full bg-white divide-y divide-gray-200 rounded-md">
+                    <thead style={{backgroundColor: '#F3F2EE'}} className="shadow-3xl">
+                    <tr>
+                        <th className="px-6 py-3 p-4 text-sm font-semibold tracking-wide text-left">Navn</th>
+                        <th className="px-6 py-3 p-4 text-sm font-semibold tracking-wide text-left">Email</th>
+                        <th className="px-6 py-3 p-4 text-sm font-semibold tracking-wide text-left">Rolle</th>
+                        <th className="px-6 py-3 p-4 text-sm font-semibold tracking-wide text-left">Handlinger</th>
+                    </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                    {users.map((user) => (
+                        <tr key={user.id} className="hover:bg-gray-100">
+                            <td className="p-4 text-sm text-gray-700 whitespace-nowrap">{user.name}</td>
+                            <td className="p-4 text-sm text-gray-700 whitespace-nowrap">{user.email}</td>
+                            <td className="p-4 text-sm text-gray-700 whitespace-nowrap">{user.role.authority}</td>
+                            <td className="p-4 text-sm text-gray-700 whitespace-nowrap">
+                                <button onClick={() => { /* Handle edit */ }} className="px-6 py-3 p-4 text-sm font-semibold tracking-wide text-left">
+                                    <FontAwesomeIcon icon={faEdit} className="mx-2"/> {/* Legg til edit ikonet */}
+                                </button>
+                                <button onClick={() => { /* Handle delete */ }} className="bg-red-700 hover:bg-red-800 text-white py-2 px-3 rounded-md">
+                                    <FontAwesomeIcon icon={faTrash} className="mx-2"/>
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
 
             <div className="flex justify-end mt-4">
                 <button onClick={handleCreateUserClick}
-                        className="px-8 py-2 bg-marine-blue-dark text-white rounded-md hover:bg-indigo-700">Create New
-                    User
+                        className="btn text-white font-semibold border-gray-700 transition-colors duration-300 px-8 py-2 rounded-lg border-2 border-white hover:border-gray-500">
+                    Lag ny bruker
                 </button>
             </div>
 
@@ -119,12 +139,13 @@ const UsersTable = () => {
                                 </select>
                             </div>
                             <button type="submit"
-                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-marine-blue-dark hover:bg-marine-blue">Create
-                                User
+                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-marine-blue-dark hover:bg-marine-blue">
+                                Create User
                             </button>
                         </form>
                         <button onClick={handleCloseModal}
-                                className="mt-4 w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200">Close
+                                className="mt-4 w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200">
+                            Close
                         </button>
                     </div>
                 </div>
@@ -134,3 +155,6 @@ const UsersTable = () => {
 };
 
 export default UsersTable;
+
+
+
