@@ -27,7 +27,7 @@ const Login = () => {
     }, [navigate, user]);
 
     return (
-        <div className="container mx-auto p-6 bg-white max-w-md mx-auto ">
+        <div className="container p-6 bg-white max-w-md mx-auto ">
             <h1 className="text-3xl font-bold mb-4">Logg Inn</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -55,19 +55,20 @@ const Login = () => {
                 </div>
                 {!isDev() && (
                     <button
-                    type="submit"
-                    style={{ marginBottom: '16px', marginTop: '32px' }}
-                    className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md">
-                    {isDev() ? 'Logg inn' : 'Send kode'}
+                        onClick={() => sendCode(code, email)}
+                        type="button"
+                        style={{ marginBottom: '16px', marginTop: '32px' }}
+                        className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md"
+                    >
+                        Logg inn
                     </button>
-                    
                 )}
                 <button
-                    onClick={() => sendCode(code, email)}
-                    type="button"
+                    type="submit"
                     style={{ marginBottom: '16px', marginTop: '32px' }}
-                    className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md">
-                    Logg inn
+                    className="btn text-white font-semibold py-3 px-6 my-8 mr-4 rounded-lg shadow-md"
+                >
+                    {isDev() ? 'Logg inn' : 'Send kode'}
                 </button>
             </form>
         </div>
