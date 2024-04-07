@@ -14,7 +14,6 @@ const CreateUserModal = ({isOpen, onClose}: CreateUserModalProps) => {
         const userName = event.target.userName.value;
         const userEmail = event.target.userEmail.value;
         const userRole = event.target.userRole.value;
-        console.log("Oppretter bruker:", userName, userEmail, userRole);
         onClose();
     };
 
