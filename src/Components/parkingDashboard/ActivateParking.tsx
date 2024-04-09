@@ -16,12 +16,6 @@ const ActivateParking = ({ showModal, setShowModal, activateParking, selectedDat
     const [minutes, setMinutes] = useState<number[]>(Array.from({ length: 60 }, (_, index) => index));
     const [error, setError] = useState<string>("");
 
-    const addMinutes = (date: Date, minutes: number): Date => {
-        const newDate = new Date(date);
-        newDate.setMinutes(newDate.getMinutes() + minutes);
-        return newDate;
-    };
-
     useEffect(() => {
         const minutesOptions = Array.from({ length: 60 }, (_, index) => index);
         setMinutes(minutesOptions);
@@ -31,18 +25,34 @@ const ActivateParking = ({ showModal, setShowModal, activateParking, selectedDat
         event.preventDefault();
         try {
             const currentDateTime = new Date();
-            const selectedDateTime = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), selectedDate, startHour + 1, startMinute);
+            console.log('Current Date Time:', currentDateTime);
 
-            if (selectedDateTime < currentDateTime) {
+            const currentTimeNow: string = currentDateTime.toISOString();
+            console.log('Current Time Now:', currentTimeNow);
+
+            const selectedDateTime = new Date(Date.UTC(currentDateTime.getFullYear(), currentDateTime.getMonth(), selectedDate, startHour, startMinute));
+            console.log('Selected Date Time:', selectedDateTime);
+
+            const durationInMs = duration * 60000;
+
+            const endTime = new Date(selectedDateTime.getTime() + durationInMs);
+
+            console.log('End Time:', endTime);
+
+            const startDateTime: string = selectedDateTime.toISOString();
+            console.log('Start DateTime:', startDateTime);
+            
+            const endTimeString: string = endTime.toISOString();
+            console.log('End Time String:', endTimeString);
+
+            if (startDateTime < currentTimeNow) {
                 setError("Start tid er ugyldig");
                 return;
             }
 
             setError("");
 
-            const startDateTime: string = selectedDateTime.toISOString();
-            const endTime: string = addMinutes(selectedDateTime, duration).toISOString();
-            activateParking(registrationNumber, startDateTime, endTime);
+            activateParking(registrationNumber, startDateTime, endTimeString);
             setRegistrationNumber("");
             setDuration(30);
         } catch (error) {
@@ -81,7 +91,10 @@ const ActivateParking = ({ showModal, setShowModal, activateParking, selectedDat
                                     <select
                                         id="startHour"
                                         value={startHour}
-                                        onChange={(e) => setStartHour(parseInt(e.target.value))}
+                                        onChange={(e) => {
+                                            console.log('Start Hour Value:', e.target.value);
+                                            setStartHour(parseInt(e.target.value))
+                                        }}
                                         required
                                         className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                                     >
@@ -95,7 +108,10 @@ const ActivateParking = ({ showModal, setShowModal, activateParking, selectedDat
                                     <select
                                         id="startMinute"
                                         value={startMinute}
-                                        onChange={(e) => setStartMinute(parseInt(e.target.value))}
+                                        onChange={(e) => {
+                                            console.log('Start Minute Value:', e.target.value);
+                                            setStartMinute(parseInt(e.target.value))
+                                        }}
                                         required
                                         className="mt-1 p-2 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border rounded-md"
                                     >

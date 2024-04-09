@@ -1,19 +1,25 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {useLogin} from "../../hooks/useLogin";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
 import isDev from "../../utils/DevDetect";
-import {useAuthContext} from "../../hooks/useAuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
-    const {login, sendCode} = useLogin();
-    const {user} = useAuthContext();
+    const [codeSent, setCodeSent] = useState(false); // New state to track if the code is sent
+    const { login, sendCode } = useLogin();
+    const { user } = useAuthContext();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         void login(email);
+    };
+
+    const handleSendCode = () => {
+        sendCode(code, email);
+        setCodeSent(true);
     };
 
     useEffect(() => {
@@ -42,6 +48,27 @@ const Login = () => {
                         required
                     />
                 </div>
+                {isDev() ? (
+                    <button
+                        type="submit"
+                        style={{ marginBottom: '16px', marginTop: '16px' }}
+                        className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md"
+                    >
+                        Logg inn
+                    </button>
+                ) : (
+                    <>
+                        <button
+                            type="button"
+                            onClick={handleSendCode}
+                            style={{ marginBottom: '16px', marginTop: '16px' }}
+                            className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md"
+                        >
+                            Send kode
+                        </button>
+                        {codeSent && <div className="text-green-700">Kode sendt!</div>}
+                    </>
+                )}
                 <div>
                     <label htmlFor="code" className="block text-base font-medium text-gray-700">Kode</label>
                     <input
@@ -53,26 +80,8 @@ const Login = () => {
                         placeholder="Skriv inn kode her"
                     />
                 </div>
-                {!isDev() && (
-                    <button
-                        onClick={() => sendCode(code, email)}
-                        type="button"
-                        style={{ marginBottom: '16px', marginTop: '32px' }}
-                        className="btn text-white font-semibold py-3 px-6 rounded-lg shadow-md"
-                    >
-                        Logg inn
-                    </button>
-                )}
-                <button
-                    type="submit"
-                    style={{ marginBottom: '16px', marginTop: '32px' }}
-                    className="btn text-white font-semibold py-3 px-6 my-8 mr-4 rounded-lg shadow-md"
-                >
-                    {isDev() ? 'Logg inn' : 'Send kode'}
-                </button>
             </form>
         </div>
-
     );
 };
 
