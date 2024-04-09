@@ -79,6 +79,13 @@ const Login = () => {
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                         placeholder="Skriv inn kode her"
                     />
+                    {!isDev() && <button
+                        type="submit"
+                        style={{marginBottom: '16px', marginTop: '16px'}}
+                        className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md"
+                    >
+                        Logg inn
+                    </button>}
                 </div>
             </form>
         </div>
