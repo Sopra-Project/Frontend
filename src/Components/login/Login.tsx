@@ -17,7 +17,7 @@ const Login = () => {
         if(isDev()) {
             await login(email);
         } else {
-            await sendCode(email, code);
+            await sendCode(code, email);
         }
     };
 
