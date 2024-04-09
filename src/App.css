@@ -57,23 +57,15 @@ main {
 
 .ParkingCard {
   background-color: #F3F2EE;
-
-}
-.UserTable thead {
-  background-color: #F3F2EE;
 }
 
-
-
-
+section {
+  padding: 1rem;
+  margin: 1rem;
+}
 
 @media (max-width: 1021px) {
   main {
-    margin: 0;
-  }
-
-  section{
-    padding: 0;
     margin: 0;
   }
 
@@ -88,12 +80,9 @@ main {
     gap: 3px;
   }
 
-  .lg\:col-span-1 {
-    padding: 0;
-  }
-
-  .rg\:col-span-1 {
+  section {
     padding: 0;
   }
 
 }
+
