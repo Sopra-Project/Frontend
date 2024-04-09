@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import UserDeleteButton from './UserDeleteButton';
 import { User } from '../../types/types';
 import AdminService from "../../services/AdminService";
+import UserEditButton from './UserEditButton'; // Importerer UserEditButton
 
 const UsersTable = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -12,7 +14,6 @@ const UsersTable = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [selectedRole, setSelectedRole] = useState('');
-
 
     useEffect(() => {
         if (users.length > 0) return;
@@ -54,12 +55,27 @@ const UsersTable = () => {
         }
     };
 
+    const handleDeleteSuccess = () => {
+        AdminService.getAllUsers()
+            .then((users) => {
+                setUsers(users);
+            })
+            .catch((error) => {
+                setError(error.message);
+            });
+    };
+
+    const handleEditSuccess = () => {
+        // Handle success after editing user (if needed)
+        setIsModalOpen(false);
+        setUsers([]); // Optionally, you can refresh user data after editing
+    };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error fetching users: {error}</p>;
 
     return (
-        <div className="overflow-x-auto pb-5 pt-5 shadow-xl bg-gray-100">
+        <div className="overflow-x-auto shadow-xl bg-gray-100">
             <div className="md:hidden">
                 {users.map((user) => (
                     <div key={user.id} className="p-4 m-4 bg-white rounded-lg shadow-lg">
@@ -67,12 +83,8 @@ const UsersTable = () => {
                         <div><strong>Email:</strong> {user.email}</div>
                         <div><strong>Role:</strong> {user.role.authority}</div>
                         <div className="flex justify-end space-x-2 mt-4">
-                            <button className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <FontAwesomeIcon icon={faEdit} />
-                            </button>
-                            <button className="text-red-500 hover:text-red-700">
-                                <FontAwesomeIcon icon={faTrash} />
-                            </button>
+                            <UserEditButton user={user} onEditSuccess={handleEditSuccess} />
+                            <UserDeleteButton userId={user.id} onDeleteSuccess={handleDeleteSuccess} />
                         </div>
                     </div>
                 ))}
@@ -86,22 +98,17 @@ const UsersTable = () => {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rolle</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right">Handlinger</th>
-
                         </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
                         {users.map((user) => (
                             <tr key={user.id}>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.name}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.role.authority}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <FontAwesomeIcon icon={faEdit}/>
-                                    </button>
-                                    <button className="text-red-600 hover:text-red-900">
-                                        <FontAwesomeIcon icon={faTrash}/>
-                                    </button>
+                                    <UserEditButton user={user} onEditSuccess={handleEditSuccess} />
+                                    <UserDeleteButton userId={user.id} onDeleteSuccess={handleDeleteSuccess} />
                                 </td>
                             </tr>
                         ))}
@@ -120,7 +127,7 @@ const UsersTable = () => {
                     <div className="bg-white p-8 rounded-lg shadow-lg">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Navn:</label>
                                 <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)}
                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"/>
                             </div>
@@ -131,7 +138,7 @@ const UsersTable = () => {
                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"/>
                             </div>
                             <div>
-                                <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role:</label>
+                                <label htmlFor="role" className="block text-sm font-medium text-gray-700">Rolle:</label>
                                 <select id="role" value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)}
                                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none">
                                     <option value="">Velg rolle</option>
@@ -140,7 +147,7 @@ const UsersTable = () => {
                                 </select>
                             </div>
                             <button type="submit"
-                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-marine-blue-dark hover:bg-marine-blue">
+                                    className=" btn w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-marine-blue-dark hover:bg-marine-blue">
                                 Lag bruker
                             </button>
                         </form>
@@ -156,6 +163,7 @@ const UsersTable = () => {
 };
 
 export default UsersTable;
+
 
 
 
