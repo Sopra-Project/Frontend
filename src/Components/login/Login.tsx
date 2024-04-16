@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLogin } from "../../hooks/useLogin";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useLogin} from "../../hooks/useLogin";
 import isDev from "../../utils/DevDetect";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import {useAuthContext} from "../../hooks/useAuthContext";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [codeSent, setCodeSent] = useState(false); // New state to track if the code is sent
-    const { login, sendCode } = useLogin();
-    const { user } = useAuthContext();
+    const {login, sendCode} = useLogin();
+    const {user} = useAuthContext();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        void login(email);
+        if(isDev()) {
+            await login(email);
+        } else {
+            await sendCode(code, email);
+        }
     };
 
-    const handleSendCode = () => {
-        sendCode(code, email);
+    const handleSendCode = async () => {
+        await login(email);
         setCodeSent(true);
     };
 
@@ -51,7 +55,7 @@ const Login = () => {
                 {isDev() ? (
                     <button
                         type="submit"
-                        style={{ marginBottom: '16px', marginTop: '16px' }}
+                        style={{marginBottom: '16px', marginTop: '16px'}}
                         className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md"
                     >
                         Logg inn
@@ -61,7 +65,7 @@ const Login = () => {
                         <button
                             type="button"
                             onClick={handleSendCode}
-                            style={{ marginBottom: '16px', marginTop: '16px' }}
+                            style={{marginBottom: '16px', marginTop: '16px'}}
                             className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md"
                         >
                             Send kode
@@ -79,6 +83,13 @@ const Login = () => {
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                         placeholder="Skriv inn kode her"
                     />
+                    {!isDev() && <button
+                        type="submit"
+                        style={{marginBottom: '16px', marginTop: '16px'}}
+                        className="btn text-white font-semibold py-3 px-6 mr-4 rounded-lg shadow-md"
+                    >
+                        Logg inn
+                    </button>}
                 </div>
             </form>
         </div>

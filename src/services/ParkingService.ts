@@ -32,7 +32,6 @@ const ParkingService: IParkingService = {
     deactivateParking: async (id: number) => {
         try {
             const response = await FetchHelper.delete(BASE_URL + '/api/parking/' + id);
-            console.log('Parking deactivated successfully');
             return response;
         } catch (error) {
             console.error('Failed to deactivate parking:', error);

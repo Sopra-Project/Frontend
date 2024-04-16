@@ -20,7 +20,6 @@ function DeactivateParking({showModal, handleDeactivateParking, handleCloseDeact
                     const response = await ParkingService.getParkingID(id);
                     const responseRegistrationNumber = response.registrationNumber;
                     setParkingRegistrationNumber(responseRegistrationNumber);
-                    console.log("Registreringsnummeret er", responseRegistrationNumber);
                 }
             } catch (error) {
                 console.error("Error fetching parking spot ID:", error);

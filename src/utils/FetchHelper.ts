@@ -18,6 +18,16 @@ export const FetchHelper = {
             body: JSON.stringify(data)
         });
     },
+    put: async (url: string, data: any): Promise<any> => {
+        return await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(data)
+        });
+    },
     delete: async (url: string) => {
         return await fetch(url, {
             method: 'DELETE',
@@ -26,5 +36,5 @@ export const FetchHelper = {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         });
-    }
-}
+    },
+};
