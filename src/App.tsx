@@ -8,6 +8,7 @@ import {SuperAdminDashboard} from "./Components/superadminDashboard/SuperAdminDa
 import ParkingValidation from "./Components/ValidateParking";
 import Footer from './Components/Footer';
 import Navbar from "./Components/Navbar";
+import BuildingManagement from './Components/BuildingMangagement/BuildingManagement';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard/>}/>
                     <Route path="/superadmin" element={<SuperAdminDashboard/>}/>
                     <Route path="/validate" element={<ParkingValidation/>}/>
+                    <Route path="/building" element={<BuildingManagement/>}/>
                 </Routes>
                 </main>
                 <Footer/>
