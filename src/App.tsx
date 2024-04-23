@@ -8,7 +8,7 @@ import {SuperAdminDashboard} from "./Components/superadminDashboard/SuperAdminDa
 import ParkingValidation from "./Components/ValidateParking";
 import Footer from './Components/Footer';
 import Navbar from "./Components/Navbar";
-import BuildingManagement from './Components/BuildingMangagement/BuildingManagement';
+import BuildingManagement from './Components/BuildingManagement/BuildingManagement';
 
 function App() {
 
