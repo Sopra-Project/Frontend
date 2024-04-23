@@ -75,7 +75,7 @@ const UsersTable = () => {
     if (error) return <p>Error fetching users: {error}</p>;
 
     return (
-        <div className="overflow-x-auto shadow-xl bg-gray-100">
+        <div className="overflow-x-auto shadow-xl bg-gray-100 ">
             <div className="md:hidden">
                 {users.map((user) => (
                     <div key={user.id} className="p-4 m-4 bg-white rounded-lg shadow-lg">

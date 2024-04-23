@@ -37,7 +37,7 @@ const Login = () => {
     }, [navigate, user]);
 
     return (
-        <div className="container p-6 bg-white max-w-md mx-auto ">
+        <div className="container p-6 bg-white max-w-md mx-auto" style={{height: 'calc(100vh - 83px - 92px)'}}>
             <h1 className="text-3xl font-bold mb-4">Logg Inn</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
